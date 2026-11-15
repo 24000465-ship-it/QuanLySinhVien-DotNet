@@ -1,0 +1,13 @@
+# Thư mục build của Visual Studio
+bin/
+obj/
+.vs/
+packages/
+*.user
+*.suo
+
+# Bản phát hành tạo bằng CongCu\DongGoi.ps1
+BanPhatHanh/
+
+# File khóa tạm của Word/PowerPoint khi đang mở tài liệu
+~$*
