@@ -6,7 +6,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.BUS
 {
-    /// <summary>Nghiệp vụ quản lý lớp (F04).</summary>
     public class LopBUS : IDanhMucBUS<Lop>
     {
         private readonly LopDAL dal = new LopDAL();
@@ -33,13 +32,11 @@ namespace QuanLySinhVien.BUS
         public void Xoa(string maLop)
         {
             PhienDangNhap.YeuCauQuanLyDaoTao();
-            // R08: không xóa lớp đang có sinh viên (hoặc đã được phân công giảng dạy)
             if (dal.DemPhuThuoc(maLop) > 0)
                 throw new LoiNghiepVu("Không thể xóa lớp đang có sinh viên hoặc đã được phân công giảng dạy.");
             dal.Xoa(maLop);
         }
 
-        /// <summary>Gợi ý mã lớp theo quy ước DH + năm (2 số) + mã ngành, ví dụ DH2601.</summary>
         public static string GoiYMaLop(string maNganh, int khoaHoc)
         {
             return "DH" + (khoaHoc % 100).ToString("00") + maNganh;

@@ -3,16 +3,11 @@ using QuanLySinhVien.BUS;
 
 namespace QuanLySinhVien.DAL.Entity
 {
-    /// <summary>
-    /// Lớp trừu tượng chứa thông tin chung của một người (trừu tượng hóa).
-    /// SinhVien và GiangVien kế thừa lớp này (kế thừa).
-    /// </summary>
     public abstract class Nguoi
     {
         private string hoTen;
         private string soDienThoai;
 
-        /// <summary>Họ tên: bắt buộc, tự chuẩn hóa khoảng trắng và viết hoa chữ cái đầu (đóng gói).</summary>
         public string HoTen
         {
             get { return hoTen; }
@@ -28,7 +23,6 @@ namespace QuanLySinhVien.DAL.Entity
 
         public string GioiTinh { get; set; }
 
-        /// <summary>Số điện thoại: đúng 10 chữ số (R09).</summary>
         public string SoDienThoai
         {
             get { return soDienThoai; }
@@ -40,19 +34,15 @@ namespace QuanLySinhVien.DAL.Entity
             }
         }
 
-        /// <summary>Mã định danh của người (mã SV hoặc mã GV) — mỗi lớp con tự định nghĩa.</summary>
         public abstract string MaDinhDanh { get; }
 
-        /// <summary>Tên vai trò hiển thị — mỗi lớp con trả về khác nhau (đa hình).</summary>
         public abstract string VaiTro();
 
-        /// <summary>Tuổi tính theo năm hiện tại.</summary>
         public int Tuoi()
         {
             return DateTime.Today.Year - NgaySinh.Year;
         }
 
-        /// <summary>Ghi đè ToString của lớp object (đa hình lúc chạy).</summary>
         public override string ToString()
         {
             return string.Format("{0} {1} - {2}", VaiTro(), MaDinhDanh, HoTen);

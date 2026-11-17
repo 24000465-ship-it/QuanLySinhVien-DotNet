@@ -1,6 +1,4 @@
 @echo off
-rem Cài đặt Phần mềm Quản lý Sinh viên: chép chương trình vào %LOCALAPPDATA%\QuanLySinhVien
-rem và tạo lối tắt trên màn hình Desktop. Chạy file này trong thư mục giải nén.
 chcp 65001 >nul
 set DICH=%LOCALAPPDATA%\QuanLySinhVien
 echo Dang cai dat vao %DICH% ...

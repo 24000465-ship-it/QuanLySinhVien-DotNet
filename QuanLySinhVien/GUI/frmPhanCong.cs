@@ -6,7 +6,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>Phân công giảng viên dạy môn cho lớp theo học kỳ (F07, R12).</summary>
     public partial class frmPhanCong : Form
     {
         private readonly IPhanCongBUS phanCongBus = new PhanCongBUS();
@@ -43,7 +42,6 @@ namespace QuanLySinhVien.GUI
             TaiLai();
         }
 
-        /// <summary>Lưới hiện các môn đã xếp cho lớp và giảng viên đang dạy (trống = chưa phân công).</summary>
         private void TaiLai()
         {
             string maLop = GiaoDien.GiaTri(cboLop);
@@ -55,7 +53,6 @@ namespace QuanLySinhVien.GUI
                 dgvMonCuaLop.DataSource = monDaXep;
                 GiaoDien.DatTieuDeCot(dgvMonCuaLop, "MaMon", "Mã môn", "TenMon", "Tên môn",
                     "SoTinChi", "Tín chỉ", "GiangVien", "Giảng viên đang dạy");
-                // Chỉ cho chọn những môn lớp đã được xếp (R12)
                 GiaoDien.NapComboBox(cboMonHoc, monDaXep, "TenMon", "MaMon", false);
             }
             catch (Exception ex)

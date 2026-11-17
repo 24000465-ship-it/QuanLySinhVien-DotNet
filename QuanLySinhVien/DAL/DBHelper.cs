@@ -7,32 +7,23 @@ using QuanLySinhVien.BUS;
 
 namespace QuanLySinhVien.DAL
 {
-    /// <summary>
-    /// Lớp dùng chung để làm việc với MySQL qua ADO.NET:
-    /// mở kết nối, gọi Stored Procedure có tham số, đổ dữ liệu vào DataTable.
-    /// Mọi lớp DAL khác chỉ gọi các phương thức ở đây.
-    /// </summary>
     public static class DBHelper
     {
-        // Mã lỗi MySQL thường gặp
-        private const int LoiTrungKhoa = 1062;        // trùng khóa chính / UNIQUE
-        private const int LoiDangDuocThamChieu = 1451; // xóa bản ghi đang được bảng khác tham chiếu
-        private const int LoiKhoaNgoai = 1452;         // khóa ngoại không tồn tại
-        private const int LoiViPhamCheck = 3819;       // vi phạm ràng buộc CHECK
+        private const int LoiTrungKhoa = 1062;
+        private const int LoiDangDuocThamChieu = 1451;
+        private const int LoiKhoaNgoai = 1452;
+        private const int LoiViPhamCheck = 3819;
 
-        /// <summary>Chuỗi kết nối đọc từ App.config (đổi máy chỉ cần sửa App.config).</summary>
         public static string ChuoiKetNoi
         {
             get { return ConfigurationManager.ConnectionStrings["QLSV"].ConnectionString; }
         }
 
-        /// <summary>Tạo tham số cho Stored Procedure; giá trị null được đổi thành DBNull.</summary>
         public static MySqlParameter TS(string ten, object giaTri)
         {
             return new MySqlParameter(ten, giaTri ?? DBNull.Value);
         }
 
-        /// <summary>Kiểm tra có kết nối được CSDL không (dùng khi mở chương trình).</summary>
         public static bool KiemTraKetNoi(out string thongBaoLoi)
         {
             thongBaoLoi = null;
@@ -51,7 +42,6 @@ namespace QuanLySinhVien.DAL
             }
         }
 
-        /// <summary>Gọi thủ tục trả về nhiều dòng (SELECT) → DataTable (mô hình không kết nối).</summary>
         public static DataTable LayBang(string tenThuTuc, params MySqlParameter[] thamSo)
         {
             DataTable bang = new DataTable();
@@ -71,7 +61,6 @@ namespace QuanLySinhVien.DAL
             return bang;
         }
 
-        /// <summary>Gọi thủ tục thêm / sửa / xóa → số dòng bị ảnh hưởng.</summary>
         public static int ThucThi(string tenThuTuc, params MySqlParameter[] thamSo)
         {
             try
@@ -89,7 +78,6 @@ namespace QuanLySinhVien.DAL
             }
         }
 
-        /// <summary>Gọi thủ tục trả về một giá trị đơn (COUNT, mã mới...) → ExecuteScalar.</summary>
         public static object LayGiaTri(string tenThuTuc, params MySqlParameter[] thamSo)
         {
             try
@@ -107,10 +95,6 @@ namespace QuanLySinhVien.DAL
             }
         }
 
-        /// <summary>
-        /// Chạy nhiều thủ tục trong một giao dịch (transaction): tất cả cùng thành công,
-        /// hoặc có một lệnh lỗi thì hủy hết (dùng khi lưu cả bảng điểm).
-        /// </summary>
         public static void ThucThiGiaoDich(List<KeyValuePair<string, MySqlParameter[]>> danhSachLenh)
         {
             using (MySqlConnection conn = new MySqlConnection(ChuoiKetNoi))
@@ -153,7 +137,6 @@ namespace QuanLySinhVien.DAL
             return cmd;
         }
 
-        /// <summary>Đổi lỗi kỹ thuật của MySQL thành thông báo tiếng Việt dễ hiểu.</summary>
         private static Exception DichLoi(MySqlException ex)
         {
             switch (ex.Number)

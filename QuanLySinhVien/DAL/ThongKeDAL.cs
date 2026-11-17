@@ -2,7 +2,6 @@ using System.Data;
 
 namespace QuanLySinhVien.DAL
 {
-    /// <summary>Các truy vấn thống kê và dữ liệu cho báo cáo (Crystal Report, Excel).</summary>
     public class ThongKeDAL
     {
         public DataTable SinhVienDiemCaoNhat(string maLop, string maHocKy, int soLuong)

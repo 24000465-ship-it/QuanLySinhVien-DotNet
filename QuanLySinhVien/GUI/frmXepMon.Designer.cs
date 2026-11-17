@@ -40,9 +40,6 @@ namespace QuanLySinhVien.GUI
             this.grpTongTinChi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTongTinChi)).BeginInit();
             this.SuspendLayout();
-            //
-            // pnlChon
-            //
             this.pnlChon.Controls.Add(this.lblHocKy);
             this.pnlChon.Controls.Add(this.cboHocKy);
             this.pnlChon.Controls.Add(this.lblLop);
@@ -83,9 +80,6 @@ namespace QuanLySinhVien.GUI
             this.btnXepMon.TabIndex = 3;
             this.btnXepMon.Text = "Xếp môn cho cả lớp";
             this.btnXepMon.Click += new System.EventHandler(this.btnXepMon_Click);
-            //
-            // splitKetQua
-            //
             this.splitKetQua.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitKetQua.Name = "splitKetQua";
             this.splitKetQua.Panel1.Controls.Add(this.grpMonDaXep);
@@ -106,9 +100,6 @@ namespace QuanLySinhVien.GUI
             this.dgvTongTinChi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTongTinChi.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTongTinChi.Name = "dgvTongTinChi";
-            //
-            // frmXepMon
-            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 560);

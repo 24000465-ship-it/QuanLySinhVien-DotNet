@@ -6,7 +6,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>Quản lý sinh viên (F03, UC02): thêm, sửa, xóa, tìm theo mã SV, họ tên, lớp.</summary>
     public partial class frmSinhVien : frmDanhMucBase
     {
         private const string ChuMaTuSinh = "(tự sinh khi lưu)";
@@ -32,7 +31,6 @@ namespace QuanLySinhVien.GUI
                 "GioiTinh", "Giới tính", "SoDienThoai", "Điện thoại", "TenLop", "Lớp");
         }
 
-        /// <summary>Chọn lớp ở ô lọc thì danh sách được lọc ngay.</summary>
         private void cboLocLop_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboLocLop.Focused) NapLai();
@@ -56,14 +54,12 @@ namespace QuanLySinhVien.GUI
             dtpNgaySinh.Value = new DateTime(DateTime.Today.Year - 18, 1, 1);
             rdoNam.Checked = true;
             txtSoDienThoai.Clear();
-            // Đang lọc theo lớp nào thì thêm mới mặc định vào lớp đó
             if (GiaoDien.GiaTri(cboLocLop) != "")
                 cboMaLop.SelectedValue = GiaoDien.GiaTri(cboLocLop);
         }
 
         protected override void ChoPhepNhap(bool choPhep, bool dangThem)
         {
-            // Mã SV luôn chỉ đọc: hệ thống tự sinh và không cho sửa (R05)
             txtHoTen.ReadOnly = !choPhep;
             dtpNgaySinh.Enabled = choPhep;
             pnlGioiTinh.Enabled = choPhep;
@@ -74,7 +70,6 @@ namespace QuanLySinhVien.GUI
 
         private SinhVien DocForm()
         {
-            // Gán HoTen, SoDienThoai sẽ tự kiểm tra (đóng gói trong lớp Nguoi)
             SinhVien sv = new SinhVien();
             sv.MaSV = txtMaSV.Text == ChuMaTuSinh ? null : txtMaSV.Text;
             sv.HoTen = txtHoTen.Text;
@@ -88,7 +83,7 @@ namespace QuanLySinhVien.GUI
         protected override void LuuThem()
         {
             string maMoi = sinhVienBus.Them(DocForm());
-            txtTimKiem.Text = maMoi; // lọc ngay sinh viên vừa thêm để người dùng thấy mã được cấp
+            txtTimKiem.Text = maMoi;
         }
 
         protected override void LuuSua() { sinhVienBus.Sua(DocForm()); }

@@ -4,7 +4,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.DAL
 {
-    /// <summary>Truy cập bảng Nganh.</summary>
     public class NganhDAL
     {
         public DataTable LayDanhSach(string tuKhoa)
@@ -33,7 +32,6 @@ namespace QuanLySinhVien.DAL
             DBHelper.ThucThi("sp_Nganh_Xoa", DBHelper.TS("@p_MaNganh", maNganh));
         }
 
-        /// <summary>Số lớp thuộc ngành (R08).</summary>
         public int DemPhuThuoc(string maNganh)
         {
             return Convert.ToInt32(DBHelper.LayGiaTri("sp_Nganh_DemPhuThuoc", DBHelper.TS("@p_MaNganh", maNganh)));

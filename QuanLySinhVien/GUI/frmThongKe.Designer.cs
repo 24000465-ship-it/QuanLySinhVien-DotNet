@@ -59,9 +59,6 @@ namespace QuanLySinhVien.GUI
             this.tabQuyMo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvQuyMo)).BeginInit();
             this.SuspendLayout();
-            //
-            // pnlChon
-            //
             this.pnlChon.Controls.Add(this.lblHocKy);
             this.pnlChon.Controls.Add(this.cboHocKy);
             this.pnlChon.Controls.Add(this.lblLop);
@@ -112,9 +109,6 @@ namespace QuanLySinhVien.GUI
             this.btnXuatExcel.TabIndex = 4;
             this.btnXuatExcel.Text = "Xuất Excel";
             this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
-            //
-            // tabChinh
-            //
             this.tabChinh.Controls.Add(this.tabXepLoai);
             this.tabChinh.Controls.Add(this.tabDiemCao);
             this.tabChinh.Controls.Add(this.tabMonTruot);
@@ -122,9 +116,6 @@ namespace QuanLySinhVien.GUI
             this.tabChinh.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabChinh.Name = "tabChinh";
             this.tabChinh.SelectedIndex = 0;
-            //
-            // tabXepLoai
-            //
             this.tabXepLoai.Controls.Add(this.splitXepLoai);
             this.tabXepLoai.Name = "tabXepLoai";
             this.tabXepLoai.Text = "Xếp loại theo lớp";
@@ -142,14 +133,10 @@ namespace QuanLySinhVien.GUI
             this.dgvTongHop.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvTongHop.Name = "dgvTongHop";
             this.dgvTongHop.Size = new System.Drawing.Size(428, 170);
-            //
-            // chartXepLoai
-            //
             vungVe.AxisX.Interval = 1;
             vungVe.Name = "VungVe";
             this.chartXepLoai.ChartAreas.Add(vungVe);
             this.chartXepLoai.Dock = System.Windows.Forms.DockStyle.Fill;
-            // Biểu đồ báo lỗi nếu bị co về chiều cao 0 khi cửa sổ nhỏ → giữ kích thước tối thiểu
             this.chartXepLoai.MinimumSize = new System.Drawing.Size(200, 150);
             this.chartXepLoai.Name = "chartXepLoai";
             cotSoSV.ChartArea = "VungVe";
@@ -159,36 +146,24 @@ namespace QuanLySinhVien.GUI
             tieuDeBieuDo.Name = "TieuDe";
             tieuDeBieuDo.Text = "Số sinh viên theo xếp loại";
             this.chartXepLoai.Titles.Add(tieuDeBieuDo);
-            //
-            // tabDiemCao
-            //
             this.tabDiemCao.Controls.Add(this.dgvDiemCao);
             this.tabDiemCao.Name = "tabDiemCao";
             this.tabDiemCao.Text = "Sinh viên điểm cao nhất lớp";
             this.dgvDiemCao.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDiemCao.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDiemCao.Name = "dgvDiemCao";
-            //
-            // tabMonTruot
-            //
             this.tabMonTruot.Controls.Add(this.dgvMonTruot);
             this.tabMonTruot.Name = "tabMonTruot";
             this.tabMonTruot.Text = "Môn có tỉ lệ trượt cao nhất";
             this.dgvMonTruot.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMonTruot.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvMonTruot.Name = "dgvMonTruot";
-            //
-            // tabQuyMo
-            //
             this.tabQuyMo.Controls.Add(this.dgvQuyMo);
             this.tabQuyMo.Name = "tabQuyMo";
             this.tabQuyMo.Text = "Quy mô theo khoa";
             this.dgvQuyMo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvQuyMo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvQuyMo.Name = "dgvQuyMo";
-            //
-            // frmThongKe
-            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 560);

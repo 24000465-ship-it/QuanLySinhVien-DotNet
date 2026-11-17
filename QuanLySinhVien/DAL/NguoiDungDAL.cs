@@ -4,10 +4,8 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.DAL
 {
-    /// <summary>Truy cập bảng NguoiDung.</summary>
     public class NguoiDungDAL
     {
-        /// <summary>Tìm tài khoản khớp tên đăng nhập và mật khẩu đã băm; không có thì trả về null.</summary>
         public NguoiDung DangNhap(string tenDangNhap, string matKhauBam)
         {
             DataTable bang = DBHelper.LayBang("sp_NguoiDung_DangNhap",

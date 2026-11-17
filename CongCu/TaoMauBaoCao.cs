@@ -1,11 +1,3 @@
-// =============================================================================
-// Công cụ tạo 3 mẫu Crystal Report (.rpt) bằng code, dùng thư viện RAS (Report Application Server)
-// có sẵn trong Crystal Reports runtime — dùng khi máy chưa cài công cụ thiết kế kéo thả
-// "SAP Crystal Reports for Visual Studio". Cấu trúc cột lấy trực tiếp từ lớp BUS của phần mềm,
-// nên mẫu báo cáo luôn khớp với dữ liệu chương trình nạp vào lúc chạy (SetDataSource).
-// Cách chạy: CongCu\TaoMauBaoCao.bat (cần MySQL đang chạy và CSDL qlsv đã tạo).
-// Sau này nếu cài công cụ thiết kế thì có thể mở các file .rpt này trong Visual Studio để sửa giao diện.
-// =============================================================================
 using System;
 using System.Data;
 using System.IO;
@@ -18,8 +10,8 @@ using QuanLySinhVien.BUS;
 
 internal static class TaoMauBaoCao
 {
-    private const int TwipMoiCm = 567;               // Crystal đo kích thước bằng twip (1 cm = 567 twip)
-    private const uint MauXanh = 0x935400;           // màu BGR: xanh đậm (0, 84, 147)
+    private const int TwipMoiCm = 567;
+    private const uint MauXanh = 0x935400;
     private const uint MauDen = 0x000000;
 
     private static void Main(string[] args)
@@ -27,7 +19,6 @@ internal static class TaoMauBaoCao
         string thuMucRa = args.Length > 0 ? args[0] : Path.Combine(Environment.CurrentDirectory, "CrystalReport");
         Directory.CreateDirectory(thuMucRa);
 
-        // Đăng nhập Admin để lớp BUS cho phép lấy dữ liệu báo cáo
         new NguoiDungBUS().DangNhap("admin", "123456");
         ThongKeBUS tk = new ThongKeBUS();
 
@@ -61,17 +52,12 @@ internal static class TaoMauBaoCao
         Console.WriteLine("Da tao xong 3 mau bao cao trong: " + thuMucRa);
     }
 
-    /// <summary>
-    /// Tạo một mẫu báo cáo: tiêu đề + dòng thông tin chung (Report Header), tiêu đề cột (Page Header),
-    /// dữ liệu từng dòng (Details), chữ ký người lập (Report Footer).
-    /// </summary>
     private static void Tao(string thuMuc, string tenFile, DataTable mau, string tieuDe,
         string[] dongThongTin, string[] tieuDeCot, string[] tenCot, double[] doRongCm)
     {
         System.Data.DataSet ds = new System.Data.DataSet("dsBaoCao");
         ds.Tables.Add(mau.Copy());
 
-        // RAS chạy trong tiến trình: mở mẫu trống bằng ReportDocument rồi lấy ReportClientDocument
         CrystalDecisions.CrystalReports.Engine.ReportDocument rd = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
         rd.Load(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MauTrong.rpt"));
         ISCDReportClientDocument rcd = rd.ReportClientDocument;
@@ -88,7 +74,6 @@ internal static class TaoMauBaoCao
         DatChieuCao(rcd, de, 330);
         DatChieuCao(rcd, rf, 1400);
 
-        // Report Header: tên trường, tiêu đề báo cáo, dòng thông tin (lớp, môn...)
         ThemChu(rcd, rh, "TRƯỜNG ĐẠI HỌC CÔNG NGHỆ ĐÔNG Á - PHÒNG ĐÀO TẠO", 0, 0, 10000, 280, 9, true, MauDen, CrAlignmentEnum.crAlignmentLeft);
         ThemChu(rcd, rh, tieuDe, 0, 450, 10500, 420, 15, true, MauXanh, CrAlignmentEnum.crAlignmentHorizontalCenter);
         int x = 0;
@@ -102,8 +87,6 @@ internal static class TaoMauBaoCao
             x += rongTruong;
         }
 
-        // Page Header: tiêu đề cột; Details: các trường dữ liệu.
-        // Cột số căn giữa (cả tiêu đề), điểm 1 chữ số thập phân, số tín chỉ / mã học kỳ là số nguyên.
         int trai = 0;
         for (int i = 0; i < tenCot.Length; i++)
         {
@@ -118,7 +101,6 @@ internal static class TaoMauBaoCao
         }
         ThemDuongKe(rcd, ph, 0, 420, trai);
 
-        // Report Footer: ngày lập và chữ ký
         ThemDuongKe(rcd, rf, 0, 60, trai);
         ThemChu(rcd, rf, "Bắc Ninh, ngày ...... tháng ...... năm 20......", trai - 5200, 250, 5200, 300, 10, false, MauDen, CrAlignmentEnum.crAlignmentHorizontalCenter);
         ThemChu(rcd, rf, "NGƯỜI LẬP BIỂU", trai - 5200, 600, 5200, 300, 10, true, MauDen, CrAlignmentEnum.crAlignmentHorizontalCenter);
@@ -192,7 +174,6 @@ internal static class TaoMauBaoCao
         o.FontColor = TaoFont(10, dam, MauDen);
         if (soLe >= 0)
         {
-            // Trường số: căn giữa, số chữ số thập phân cố định, dấu phẩy thập phân kiểu Việt Nam
             ObjectFormat dinhDang = new ObjectFormatClass();
             dinhDang.HorizontalAlignment = CrAlignmentEnum.crAlignmentHorizontalCenter;
             o.Format = dinhDang;
@@ -202,12 +183,12 @@ internal static class TaoMauBaoCao
             so.EnableUseLeadZero = true;
             so.NegativeFormat = CrNegativeTypeEnum.crNegativeTypeLeadingMinus;
             so.ThousandsSeparator = false;
-            so.EnableSuppressIfZero = false;                 // điểm 0 (môn F) vẫn phải hiện "0,0"
+            so.EnableSuppressIfZero = false;
             so.ZeroValueString = soLe == 1 ? "0,0" : "0";
             so.DecimalSymbol = ",";
             FieldFormat ff = new FieldFormatClass();
             CommonFieldFormat chung = new CommonFieldFormatClass();
-            chung.EnableSystemDefault = false;   // không dùng định dạng số mặc định của Windows
+            chung.EnableSystemDefault = false;
             ff.CommonFormat = chung;
             ff.NumericFormat = so;
             o.FieldFormat = ff;

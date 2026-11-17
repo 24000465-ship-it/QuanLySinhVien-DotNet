@@ -32,9 +32,6 @@ namespace QuanLySinhVien.GUI
             this.pnlChon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMonCuaLop)).BeginInit();
             this.SuspendLayout();
-            //
-            // pnlChon
-            //
             this.pnlChon.Controls.Add(this.lblHocKy);
             this.pnlChon.Controls.Add(this.cboHocKy);
             this.pnlChon.Controls.Add(this.lblLop);
@@ -91,17 +88,11 @@ namespace QuanLySinhVien.GUI
             this.lblGhiChu.Location = new System.Drawing.Point(12, 82);
             this.lblGhiChu.Name = "lblGhiChu";
             this.lblGhiChu.Text = "Chỉ phân công được môn lớp đã xếp; mỗi lớp - môn - học kỳ chỉ một giảng viên (lưu lại sẽ thay giảng viên cũ).";
-            //
-            // dgvMonCuaLop
-            //
             this.dgvMonCuaLop.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMonCuaLop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvMonCuaLop.Name = "dgvMonCuaLop";
             this.dgvMonCuaLop.TabIndex = 5;
             this.dgvMonCuaLop.SelectionChanged += new System.EventHandler(this.dgvMonCuaLop_SelectionChanged);
-            //
-            // frmPhanCong
-            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 560);

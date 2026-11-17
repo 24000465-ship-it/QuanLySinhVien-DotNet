@@ -52,9 +52,6 @@ namespace QuanLySinhVien.GUI
             this.menuChinh.SuspendLayout();
             this.thanhTrangThai.SuspendLayout();
             this.SuspendLayout();
-            //
-            // menuChinh
-            //
             this.menuChinh.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.mnuHeThong, this.mnuDanhMuc, this.mnuSinhVien, this.mnuDaoTao,
                 this.mnuDiem, this.mnuBaoCaoThongKe, this.mnuCuaSo, this.mnuTroGiup });
@@ -62,9 +59,6 @@ namespace QuanLySinhVien.GUI
             this.menuChinh.MdiWindowListItem = this.mnuCuaSo;
             this.menuChinh.Name = "menuChinh";
             this.menuChinh.Size = new System.Drawing.Size(1100, 24);
-            //
-            // mnuHeThong
-            //
             this.mnuHeThong.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.mnuDoiMatKhau, this.mnuQuanLyTaiKhoan, this.mnuDangXuat, this.mnuThoat });
             this.mnuHeThong.Name = "mnuHeThong";
@@ -81,9 +75,6 @@ namespace QuanLySinhVien.GUI
             this.mnuThoat.Name = "mnuThoat";
             this.mnuThoat.Text = "Thoát";
             this.mnuThoat.Click += new System.EventHandler(this.mnuThoat_Click);
-            //
-            // mnuDanhMuc
-            //
             this.mnuDanhMuc.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.mnuKhoa, this.mnuNganh, this.mnuLop, this.mnuHocKy, this.mnuMonHoc,
                 this.mnuGiangVien, this.mnuCayDonVi });
@@ -110,18 +101,12 @@ namespace QuanLySinhVien.GUI
             this.mnuCayDonVi.Name = "mnuCayDonVi";
             this.mnuCayDonVi.Text = "Cây Khoa - Ngành - Lớp";
             this.mnuCayDonVi.Click += new System.EventHandler(this.mnuCayDonVi_Click);
-            //
-            // mnuSinhVien
-            //
             this.mnuSinhVien.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.mnuQuanLySinhVien });
             this.mnuSinhVien.Name = "mnuSinhVien";
             this.mnuSinhVien.Text = "&Sinh viên";
             this.mnuQuanLySinhVien.Name = "mnuQuanLySinhVien";
             this.mnuQuanLySinhVien.Text = "Quản lý sinh viên";
             this.mnuQuanLySinhVien.Click += new System.EventHandler(this.mnuQuanLySinhVien_Click);
-            //
-            // mnuDaoTao
-            //
             this.mnuDaoTao.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.mnuXepMon, this.mnuPhanCong });
             this.mnuDaoTao.Name = "mnuDaoTao";
             this.mnuDaoTao.Text = "Đà&o tạo";
@@ -131,9 +116,6 @@ namespace QuanLySinhVien.GUI
             this.mnuPhanCong.Name = "mnuPhanCong";
             this.mnuPhanCong.Text = "Phân công giảng viên";
             this.mnuPhanCong.Click += new System.EventHandler(this.mnuPhanCong_Click);
-            //
-            // mnuDiem
-            //
             this.mnuDiem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.mnuNhapDiem, this.mnuBangDiem });
             this.mnuDiem.Name = "mnuDiem";
             this.mnuDiem.Text = "Đ&iểm";
@@ -143,9 +125,6 @@ namespace QuanLySinhVien.GUI
             this.mnuBangDiem.Name = "mnuBangDiem";
             this.mnuBangDiem.Text = "Xem bảng điểm";
             this.mnuBangDiem.Click += new System.EventHandler(this.mnuBangDiem_Click);
-            //
-            // mnuBaoCaoThongKe
-            //
             this.mnuBaoCaoThongKe.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.mnuThongKe, this.mnuBaoCao });
             this.mnuBaoCaoThongKe.Name = "mnuBaoCaoThongKe";
             this.mnuBaoCaoThongKe.Text = "&Thống kê - Báo cáo";
@@ -155,23 +134,14 @@ namespace QuanLySinhVien.GUI
             this.mnuBaoCao.Name = "mnuBaoCao";
             this.mnuBaoCao.Text = "Báo cáo (Crystal Report)";
             this.mnuBaoCao.Click += new System.EventHandler(this.mnuBaoCao_Click);
-            //
-            // mnuCuaSo
-            //
             this.mnuCuaSo.Name = "mnuCuaSo";
             this.mnuCuaSo.Text = "&Cửa sổ";
-            //
-            // mnuTroGiup
-            //
             this.mnuTroGiup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.mnuGioiThieu });
             this.mnuTroGiup.Name = "mnuTroGiup";
             this.mnuTroGiup.Text = "Trợ &giúp";
             this.mnuGioiThieu.Name = "mnuGioiThieu";
             this.mnuGioiThieu.Text = "Giới thiệu";
             this.mnuGioiThieu.Click += new System.EventHandler(this.mnuGioiThieu_Click);
-            //
-            // thanhTrangThai
-            //
             this.thanhTrangThai.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.lblNguoiDung, this.lblVaiTro, this.lblNgay });
             this.thanhTrangThai.Name = "thanhTrangThai";
             this.lblNguoiDung.Name = "lblNguoiDung";
@@ -179,9 +149,6 @@ namespace QuanLySinhVien.GUI
             this.lblNguoiDung.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblVaiTro.Name = "lblVaiTro";
             this.lblNgay.Name = "lblNgay";
-            //
-            // frmMain
-            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1100, 680);

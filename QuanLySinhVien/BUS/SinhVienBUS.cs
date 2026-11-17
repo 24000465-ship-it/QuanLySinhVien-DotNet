@@ -5,7 +5,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.BUS
 {
-    /// <summary>Nghiệp vụ quản lý sinh viên (F03).</summary>
     public class SinhVienBUS : ISinhVienBUS
     {
         private const int TuoiToiThieu = 16;
@@ -22,7 +21,6 @@ namespace QuanLySinhVien.BUS
         {
             PhienDangNhap.YeuCauQuanLyDaoTao();
             KiemTra(sv);
-            // R05: mã sinh viên do hệ thống tự sinh theo năm nhập học và ngành của lớp
             sv.MaSV = dal.SinhMa(sv.MaLop);
             dal.Them(sv);
             return sv.MaSV;
@@ -32,7 +30,6 @@ namespace QuanLySinhVien.BUS
         {
             PhienDangNhap.YeuCauQuanLyDaoTao();
             KiemTra(sv);
-            // R08: không cho đổi lớp sinh viên đã có điểm (giảng viên nhập điểm theo lớp)
             string lopCu = dal.LayMaLop(sv.MaSV);
             if (lopCu != sv.MaLop && dal.DemDiem(sv.MaSV) > 0)
                 throw new LoiNghiepVu("Không thể đổi lớp cho sinh viên đã có điểm.", "MaLop");
@@ -42,7 +39,6 @@ namespace QuanLySinhVien.BUS
         public void Xoa(string maSV)
         {
             PhienDangNhap.YeuCauQuanLyDaoTao();
-            // R08: không xóa sinh viên đã có điểm
             if (dal.DemDiem(maSV) > 0)
                 throw new LoiNghiepVu("Không thể xóa sinh viên đã có điểm.");
             dal.Xoa(maSV);
@@ -50,7 +46,6 @@ namespace QuanLySinhVien.BUS
 
         private void KiemTra(SinhVien sv)
         {
-            // Họ tên và số điện thoại đã được lớp Nguoi tự kiểm tra khi gán giá trị
             if (string.IsNullOrEmpty(sv.MaLop))
                 throw new LoiNghiepVu("Vui lòng chọn lớp.", "MaLop");
             if (string.IsNullOrEmpty(sv.GioiTinh))

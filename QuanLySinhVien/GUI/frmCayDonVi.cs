@@ -7,17 +7,10 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>Khai báo delegate: "con trỏ hàm" trỏ tới phương thức nhận mã và họ tên sinh viên.</summary>
     public delegate void ChonSinhVienHandler(string maSV, string hoTen);
 
-    /// <summary>
-    /// Hiển thị cây phân cấp Khoa → Ngành → Lớp (TreeView); chọn lớp thì hiện danh sách sinh viên.
-    /// Nhấp đúp một sinh viên sẽ phát sự kiện SinhVienDuocChon để form khác (frmBangDiem) nhận
-    /// mã sinh viên — truyền dữ liệu giữa các form bằng delegate / event.
-    /// </summary>
     public partial class frmCayDonVi : Form
     {
-        /// <summary>Sự kiện phát ra khi người dùng nhấp đúp chọn một sinh viên.</summary>
         public event ChonSinhVienHandler SinhVienDuocChon;
 
         private readonly IDanhMucBUS<Khoa> khoaBus = new KhoaBUS();
@@ -43,7 +36,6 @@ namespace QuanLySinhVien.GUI
             }
         }
 
-        /// <summary>Dựng cây: mỗi khoa là một nút gốc, ngành là nút con, lớp là nút cháu.</summary>
         private void TaoCay()
         {
             DataTable dsKhoa = khoaBus.LayDanhSach("");
@@ -94,7 +86,6 @@ namespace QuanLySinhVien.GUI
         {
             if (e.RowIndex < 0 || SinhVienDuocChon == null) return;
             DataGridViewRow dong = dgvSinhVien.Rows[e.RowIndex];
-            // Gọi delegate: mọi phương thức đã đăng ký (+=) với sự kiện sẽ được thực thi
             SinhVienDuocChon(dong.Cells["MaSV"].Value.ToString(), dong.Cells["HoTen"].Value.ToString());
             Close();
         }

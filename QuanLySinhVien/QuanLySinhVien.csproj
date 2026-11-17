@@ -53,7 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
-    <!-- DAL: lớp thực thể -->
     <Compile Include="DAL\Entity\Nguoi.cs" />
     <Compile Include="DAL\Entity\SinhVien.cs" />
     <Compile Include="DAL\Entity\GiangVien.cs" />
@@ -65,7 +64,6 @@
     <Compile Include="DAL\Entity\MonHoc.cs" />
     <Compile Include="DAL\Entity\KetQua.cs" />
     <Compile Include="DAL\Entity\PhanCong.cs" />
-    <!-- DAL: truy cập dữ liệu -->
     <Compile Include="DAL\DBHelper.cs" />
     <Compile Include="DAL\NguoiDungDAL.cs" />
     <Compile Include="DAL\KhoaDAL.cs" />
@@ -79,7 +77,6 @@
     <Compile Include="DAL\PhanCongDAL.cs" />
     <Compile Include="DAL\KetQuaDAL.cs" />
     <Compile Include="DAL\ThongKeDAL.cs" />
-    <!-- BUS -->
     <Compile Include="BUS\LoiNghiepVu.cs" />
     <Compile Include="BUS\TienIch.cs" />
     <Compile Include="BUS\QuyTacDiem.cs" />
@@ -104,7 +101,6 @@
     <Compile Include="BUS\PhanCongBUS.cs" />
     <Compile Include="BUS\KetQuaBUS.cs" />
     <Compile Include="BUS\ThongKeBUS.cs" />
-    <!-- GUI -->
     <Compile Include="GUI\GiaoDien.cs" />
     <Compile Include="GUI\XuatExcel.cs" />
     <Compile Include="GUI\frmDangNhap.cs"><SubType>Form</SubType></Compile>
@@ -150,7 +146,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <!-- Mẫu báo cáo Crystal Report (.rpt) — thiết kế trong Visual Studio, chép ra thư mục chạy -->
     <None Include="CrystalReport\*.rpt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

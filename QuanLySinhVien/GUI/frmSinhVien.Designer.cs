@@ -37,9 +37,6 @@ namespace QuanLySinhVien.GUI
             this.pnlNhapLieu.SuspendLayout();
             this.pnlGioiTinh.SuspendLayout();
             this.SuspendLayout();
-            //
-            // pnlTimKiem: thêm bộ lọc theo lớp
-            //
             this.pnlTimKiem.Controls.Add(this.lblLocLop);
             this.pnlTimKiem.Controls.Add(this.cboLocLop);
             this.lblLocLop.AutoSize = true;
@@ -52,9 +49,6 @@ namespace QuanLySinhVien.GUI
             this.cboLocLop.Size = new System.Drawing.Size(230, 23);
             this.cboLocLop.TabIndex = 2;
             this.cboLocLop.SelectedIndexChanged += new System.EventHandler(this.cboLocLop_SelectedIndexChanged);
-            //
-            // pnlNhapLieu
-            //
             this.pnlNhapLieu.Controls.Add(this.lblMaSV);
             this.pnlNhapLieu.Controls.Add(this.txtMaSV);
             this.pnlNhapLieu.Controls.Add(this.lblHoTen);
@@ -67,14 +61,8 @@ namespace QuanLySinhVien.GUI
             this.pnlNhapLieu.Controls.Add(this.txtSoDienThoai);
             this.pnlNhapLieu.Controls.Add(this.lblMaLop);
             this.pnlNhapLieu.Controls.Add(this.cboMaLop);
-            //
-            // grpThongTin
-            //
             this.grpThongTin.Size = new System.Drawing.Size(900, 110);
             this.grpThongTin.Text = "Thông tin sinh viên";
-            //
-            // dòng 1
-            //
             this.lblMaSV.AutoSize = true;
             this.lblMaSV.Location = new System.Drawing.Point(15, 15);
             this.lblMaSV.Name = "lblMaSV";
@@ -103,9 +91,6 @@ namespace QuanLySinhVien.GUI
             this.dtpNgaySinh.Name = "dtpNgaySinh";
             this.dtpNgaySinh.Size = new System.Drawing.Size(120, 23);
             this.dtpNgaySinh.TabIndex = 1;
-            //
-            // dòng 2
-            //
             this.lblGioiTinh.AutoSize = true;
             this.lblGioiTinh.Location = new System.Drawing.Point(15, 50);
             this.lblGioiTinh.Name = "lblGioiTinh";
@@ -144,9 +129,6 @@ namespace QuanLySinhVien.GUI
             this.cboMaLop.Name = "cboMaLop";
             this.cboMaLop.Size = new System.Drawing.Size(250, 23);
             this.cboMaLop.TabIndex = 4;
-            //
-            // frmSinhVien
-            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.Name = "frmSinhVien";
             this.Text = "Quản lý sinh viên";

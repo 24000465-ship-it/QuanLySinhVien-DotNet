@@ -4,7 +4,6 @@ using QuanLySinhVien.BUS;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>Form đăng nhập (F01, UC01).</summary>
     public partial class frmDangNhap : Form
     {
         private readonly NguoiDungBUS nguoiDungBus = new NguoiDungBUS();

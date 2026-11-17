@@ -1,34 +1,20 @@
--- =============================================================================
--- Đề tài : Xây dựng phần mềm quản lý sinh viên bằng công nghệ .NET
--- Tệp    : QLSV.sql — tạo CSDL, bảng, view, thủ tục và dữ liệu mẫu (MySQL 8.0)
--- Cách chạy: mở bằng MySQL Workbench rồi bấm Execute (biểu tượng tia sét),
---            hoặc: mysql -u root -p < QLSV.sql
--- Mật khẩu mặc định mọi tài khoản mẫu: 123456
--- =============================================================================
 
 DROP DATABASE IF EXISTS qlsv;
 CREATE DATABASE qlsv CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_ai_ci;
 USE qlsv;
--- Chuỗi trong script dùng cùng bảng mã/so sánh tiếng Việt với CSDL (tránh lỗi 1267 "Illegal mix of collations")
 SET NAMES utf8mb4 COLLATE utf8mb4_vi_0900_ai_ci;
 
--- Tài khoản MySQL riêng cho phần mềm (chuỗi kết nối trong App.config dùng tài khoản này),
--- chỉ có quyền trên CSDL qlsv — không dùng tài khoản root trong chương trình (code an toàn)
 CREATE USER IF NOT EXISTS 'qlsv_app'@'localhost' IDENTIFIED BY 'Qlsv@2026';
 GRANT ALL PRIVILEGES ON qlsv.* TO 'qlsv_app'@'localhost';
 FLUSH PRIVILEGES;
 
--- =============================================================================
--- PHẦN 1. BẢNG
--- =============================================================================
 
--- Tài khoản đăng nhập (R09: tên đăng nhập không trùng; mật khẩu băm SHA-256)
 CREATE TABLE NguoiDung (
     TenDangNhap VARCHAR(30)  NOT NULL PRIMARY KEY,
     MatKhau     CHAR(64)     NOT NULL,
     HoTen       VARCHAR(50)  NOT NULL,
     VaiTro      VARCHAR(20)  NOT NULL,
-    TrangThai   TINYINT(1)   NOT NULL DEFAULT 1,   -- 1: hoạt động, 0: khóa
+    TrangThai   TINYINT(1)   NOT NULL DEFAULT 1,
     CONSTRAINT CK_NguoiDung_VaiTro CHECK (VaiTro IN ('Admin', 'CanBoDaoTao', 'GiangVien'))
 );
 
@@ -37,7 +23,6 @@ CREATE TABLE Khoa (
     TenKhoa VARCHAR(100) NOT NULL UNIQUE
 );
 
--- Mã ngành gồm 2 chữ số (dùng để sinh mã sinh viên, R05)
 CREATE TABLE Nganh (
     MaNganh  CHAR(2)      NOT NULL PRIMARY KEY,
     TenNganh VARCHAR(100) NOT NULL UNIQUE,
@@ -54,14 +39,13 @@ CREATE TABLE GiangVien (
     SoDienThoai CHAR(10)     NOT NULL,
     Email       VARCHAR(100) NULL,
     MaKhoa      VARCHAR(10)  NOT NULL,
-    TenDangNhap VARCHAR(30)  NULL UNIQUE,          -- tài khoản dùng để nhập điểm
+    TenDangNhap VARCHAR(30)  NULL UNIQUE,
     CONSTRAINT FK_GiangVien_Khoa FOREIGN KEY (MaKhoa) REFERENCES Khoa (MaKhoa),
     CONSTRAINT FK_GiangVien_NguoiDung FOREIGN KEY (TenDangNhap) REFERENCES NguoiDung (TenDangNhap),
     CONSTRAINT CK_GiangVien_GioiTinh CHECK (GioiTinh IN ('Nam', 'Nữ')),
     CONSTRAINT CK_GiangVien_SDT CHECK (SoDienThoai REGEXP '^[0-9]{10}$')
 );
 
--- KhoaHoc: năm nhập học của lớp (ví dụ 2026)
 CREATE TABLE Lop (
     MaLop   VARCHAR(15)  NOT NULL PRIMARY KEY,
     TenLop  VARCHAR(100) NOT NULL,
@@ -71,7 +55,6 @@ CREATE TABLE Lop (
     CONSTRAINT CK_Lop_KhoaHoc CHECK (KhoaHoc BETWEEN 2000 AND 2099)
 );
 
--- MaSV = BM + năm nhập học (2 số) + mã ngành (2 số) + số thứ tự (3 số), ví dụ BM2601001
 CREATE TABLE SinhVien (
     MaSV        CHAR(9)     NOT NULL PRIMARY KEY,
     HoTen       VARCHAR(50) NOT NULL,
@@ -84,7 +67,6 @@ CREATE TABLE SinhVien (
     CONSTRAINT CK_SinhVien_SDT CHECK (SoDienThoai REGEXP '^[0-9]{10}$')
 );
 
--- MaHocKy dạng NNNNK: 20261 = học kỳ 1 năm học 2026-2027 (R11)
 CREATE TABLE HocKy (
     MaHocKy  CHAR(5)     NOT NULL PRIMARY KEY,
     TenHocKy VARCHAR(50) NOT NULL,
@@ -98,7 +80,6 @@ CREATE TABLE MonHoc (
     CONSTRAINT CK_MonHoc_TinChi CHECK (SoTinChi BETWEEN 1 AND 10)
 );
 
--- R12: mỗi lớp - môn - học kỳ chỉ một giảng viên (khóa chính 3 cột)
 CREATE TABLE PhanCong (
     MaLop   VARCHAR(15) NOT NULL,
     MaMon   VARCHAR(10) NOT NULL,
@@ -111,8 +92,6 @@ CREATE TABLE PhanCong (
     CONSTRAINT FK_PhanCong_GiangVien FOREIGN KEY (MaGV) REFERENCES GiangVien (MaGV)
 );
 
--- R06: mỗi sinh viên chỉ có một kết quả cho mỗi môn trong mỗi học kỳ (khóa chính 3 cột)
--- DiemHP, DiemChu, DiemHe4 là giá trị tính ra (R02, R03), để NULL khi chưa đủ 3 điểm (R10)
 CREATE TABLE KetQua (
     MaSV     CHAR(9)      NOT NULL,
     MaMon    VARCHAR(10)  NOT NULL,
@@ -132,9 +111,6 @@ CREATE TABLE KetQua (
     CONSTRAINT CK_KetQua_DiemKTHP CHECK (DiemKTHP BETWEEN 0 AND 10)
 );
 
--- =============================================================================
--- PHẦN 2. VIEW CHO BÁO CÁO (Crystal Report lấy dữ liệu từ đây)
--- =============================================================================
 
 CREATE VIEW v_SinhVienReport AS
 SELECT sv.MaSV, sv.HoTen, sv.NgaySinh, sv.GioiTinh, sv.SoDienThoai,
@@ -156,14 +132,9 @@ JOIN HocKy hk    ON hk.MaHocKy = kq.MaHocKy
 LEFT JOIN PhanCong pc ON pc.MaLop = sv.MaLop AND pc.MaMon = kq.MaMon AND pc.MaHocKy = kq.MaHocKy
 LEFT JOIN GiangVien gv ON gv.MaGV = pc.MaGV;
 
--- =============================================================================
--- PHẦN 3. THỦ TỤC (Stored Procedure)
--- Quy ước: tham số đặt tiền tố p_ để không trùng tên cột; bên C# gọi là "@p_..."
--- =============================================================================
 
 DELIMITER $$
 
--- ---------- Người dùng / đăng nhập ----------
 CREATE PROCEDURE sp_NguoiDung_DangNhap(IN p_TenDangNhap VARCHAR(30), IN p_MatKhau CHAR(64))
 BEGIN
     SELECT nd.TenDangNhap, nd.HoTen, nd.VaiTro, nd.TrangThai, gv.MaGV
@@ -213,7 +184,6 @@ BEGIN
     SELECT COUNT(*) FROM NguoiDung WHERE TenDangNhap = p_TenDangNhap;
 END$$
 
--- ---------- Khoa ----------
 CREATE PROCEDURE sp_Khoa_LayDanhSach(IN p_TuKhoa VARCHAR(100))
 BEGIN
     SELECT MaKhoa, TenKhoa FROM Khoa
@@ -236,14 +206,12 @@ BEGIN
     DELETE FROM Khoa WHERE MaKhoa = p_MaKhoa;
 END$$
 
--- R08: số bản ghi phụ thuộc (ngành, giảng viên) — khác 0 thì không cho xóa
 CREATE PROCEDURE sp_Khoa_DemPhuThuoc(IN p_MaKhoa VARCHAR(10))
 BEGIN
     SELECT (SELECT COUNT(*) FROM Nganh WHERE MaKhoa = p_MaKhoa)
          + (SELECT COUNT(*) FROM GiangVien WHERE MaKhoa = p_MaKhoa);
 END$$
 
--- ---------- Ngành ----------
 CREATE PROCEDURE sp_Nganh_LayDanhSach(IN p_TuKhoa VARCHAR(100))
 BEGIN
     SELECT n.MaNganh, n.TenNganh, n.MaKhoa, k.TenKhoa
@@ -272,7 +240,6 @@ BEGIN
     SELECT COUNT(*) FROM Lop WHERE MaNganh = p_MaNganh;
 END$$
 
--- ---------- Lớp ----------
 CREATE PROCEDURE sp_Lop_LayDanhSach(IN p_TuKhoa VARCHAR(100))
 BEGIN
     SELECT l.MaLop, l.TenLop, l.MaNganh, n.TenNganh, l.KhoaHoc,
@@ -303,7 +270,6 @@ BEGIN
          + (SELECT COUNT(*) FROM PhanCong WHERE MaLop = p_MaLop);
 END$$
 
--- ---------- Học kỳ ----------
 CREATE PROCEDURE sp_HocKy_LayDanhSach(IN p_TuKhoa VARCHAR(50))
 BEGIN
     SELECT MaHocKy, TenHocKy FROM HocKy
@@ -332,7 +298,6 @@ BEGIN
          + (SELECT COUNT(*) FROM KetQua WHERE MaHocKy = p_MaHocKy);
 END$$
 
--- ---------- Môn học ----------
 CREATE PROCEDURE sp_MonHoc_LayDanhSach(IN p_TuKhoa VARCHAR(100))
 BEGIN
     SELECT MaMon, TenMon, SoTinChi FROM MonHoc
@@ -355,14 +320,12 @@ BEGIN
     DELETE FROM MonHoc WHERE MaMon = p_MaMon;
 END$$
 
--- R08: môn đã được xếp, phân công hoặc có điểm thì không xóa
 CREATE PROCEDURE sp_MonHoc_DemPhuThuoc(IN p_MaMon VARCHAR(10))
 BEGIN
     SELECT (SELECT COUNT(*) FROM KetQua WHERE MaMon = p_MaMon)
          + (SELECT COUNT(*) FROM PhanCong WHERE MaMon = p_MaMon);
 END$$
 
--- ---------- Giảng viên ----------
 CREATE PROCEDURE sp_GiangVien_LayDanhSach(IN p_TuKhoa VARCHAR(100), IN p_MaKhoa VARCHAR(10))
 BEGIN
     SELECT gv.MaGV, gv.HoTen, gv.NgaySinh, gv.GioiTinh, gv.SoDienThoai, gv.Email,
@@ -401,7 +364,6 @@ BEGIN
     SELECT COUNT(*) FROM PhanCong WHERE MaGV = p_MaGV;
 END$$
 
--- ---------- Sinh viên ----------
 CREATE PROCEDURE sp_SinhVien_LayDanhSach(IN p_TuKhoa VARCHAR(100), IN p_MaLop VARCHAR(15))
 BEGIN
     SELECT sv.MaSV, sv.HoTen, sv.NgaySinh, sv.GioiTinh, sv.SoDienThoai, sv.MaLop, l.TenLop
@@ -411,7 +373,6 @@ BEGIN
     ORDER BY sv.MaSV;
 END$$
 
--- R05: sinh mã sinh viên tiếp theo của lớp: BM + năm (2 số) + mã ngành + số thứ tự (3 số)
 CREATE PROCEDURE sp_SinhVien_SinhMa(IN p_MaLop VARCHAR(15))
 BEGIN
     DECLARE v_TienTo CHAR(6);
@@ -437,14 +398,12 @@ BEGIN
     WHERE MaSV = p_MaSV;
 END$$
 
--- Xóa sinh viên chưa có điểm: xóa luôn các dòng kết quả rỗng (do xếp môn tạo ra)
 CREATE PROCEDURE sp_SinhVien_Xoa(IN p_MaSV CHAR(9))
 BEGIN
     DELETE FROM KetQua WHERE MaSV = p_MaSV AND DiemCC IS NULL AND DiemGK IS NULL AND DiemKTHP IS NULL;
     DELETE FROM SinhVien WHERE MaSV = p_MaSV;
 END$$
 
--- R08: đếm số môn sinh viên đã có ít nhất một điểm
 CREATE PROCEDURE sp_SinhVien_DemDiem(IN p_MaSV CHAR(9))
 BEGIN
     SELECT COUNT(*) FROM KetQua
@@ -456,8 +415,6 @@ BEGIN
     SELECT MaLop FROM SinhVien WHERE MaSV = p_MaSV;
 END$$
 
--- ---------- Xếp môn (F06) ----------
--- Tạo dòng KetQua cho các sinh viên của lớp chưa có môn này trong học kỳ; trả về số dòng thêm
 CREATE PROCEDURE sp_XepMon_TheoLop(IN p_MaLop VARCHAR(15), IN p_MaMon VARCHAR(10), IN p_MaHocKy CHAR(5))
 BEGIN
     INSERT INTO KetQua (MaSV, MaMon, MaHocKy)
@@ -469,7 +426,6 @@ BEGIN
     SELECT ROW_COUNT() AS SoDongThem;
 END$$
 
--- Các môn đã xếp cho lớp trong học kỳ, kèm số sinh viên và giảng viên đã phân công
 CREATE PROCEDURE sp_XepMon_LayDanhSach(IN p_MaLop VARCHAR(15), IN p_MaHocKy CHAR(5))
 BEGIN
     SELECT mh.MaMon, mh.TenMon, mh.SoTinChi, COUNT(*) AS SoSinhVien, gv.HoTen AS GiangVien
@@ -483,7 +439,6 @@ BEGIN
     ORDER BY mh.MaMon;
 END$$
 
--- Tổng tín chỉ học kỳ của từng sinh viên trong lớp (tính bằng truy vấn, không lưu)
 CREATE PROCEDURE sp_XepMon_TongTinChi(IN p_MaLop VARCHAR(15), IN p_MaHocKy CHAR(5))
 BEGIN
     SELECT sv.MaSV, sv.HoTen, IFNULL(SUM(mh.SoTinChi), 0) AS TongTinChi
@@ -495,7 +450,6 @@ BEGIN
     ORDER BY sv.MaSV;
 END$$
 
--- ---------- Phân công (F07) ----------
 CREATE PROCEDURE sp_PhanCong_LayDanhSach(IN p_MaLop VARCHAR(15), IN p_MaHocKy CHAR(5))
 BEGIN
     SELECT pc.MaLop, pc.MaMon, mh.TenMon, pc.MaHocKy, pc.MaGV, gv.HoTen AS TenGiangVien
@@ -506,14 +460,12 @@ BEGIN
     ORDER BY pc.MaMon;
 END$$
 
--- R12: lớp - môn - học kỳ đã được xếp môn chưa (số dòng KetQua)
 CREATE PROCEDURE sp_PhanCong_DemDaXepMon(IN p_MaLop VARCHAR(15), IN p_MaMon VARCHAR(10), IN p_MaHocKy CHAR(5))
 BEGIN
     SELECT COUNT(*) FROM KetQua kq JOIN SinhVien sv ON sv.MaSV = kq.MaSV
     WHERE sv.MaLop = p_MaLop AND kq.MaMon = p_MaMon AND kq.MaHocKy = p_MaHocKy;
 END$$
 
--- R12: mỗi lớp - môn - học kỳ chỉ một giảng viên → đã có thì cập nhật, chưa có thì thêm
 CREATE PROCEDURE sp_PhanCong_Luu(IN p_MaLop VARCHAR(15), IN p_MaMon VARCHAR(10), IN p_MaHocKy CHAR(5), IN p_MaGV VARCHAR(10))
 BEGIN
     INSERT INTO PhanCong (MaLop, MaMon, MaHocKy, MaGV)
@@ -532,7 +484,6 @@ BEGIN
     ORDER BY pc.MaLop, pc.MaMon;
 END$$
 
--- ---------- Kết quả / điểm (F08, F09, F10) ----------
 CREATE PROCEDURE sp_KetQua_LayTheoLopMon(IN p_MaLop VARCHAR(15), IN p_MaMon VARCHAR(10), IN p_MaHocKy CHAR(5))
 BEGIN
     SELECT kq.MaSV, sv.HoTen, kq.DiemCC, kq.DiemGK, kq.DiemKTHP, kq.DiemHP, kq.DiemChu, kq.DiemHe4
@@ -551,7 +502,6 @@ BEGIN
     WHERE MaSV = p_MaSV AND MaMon = p_MaMon AND MaHocKy = p_MaHocKy;
 END$$
 
--- Bảng điểm cá nhân của một sinh viên (mọi học kỳ)
 CREATE PROCEDURE sp_KetQua_LayTheoSinhVien(IN p_MaSV CHAR(9))
 BEGIN
     SELECT kq.MaHocKy, hk.TenHocKy, kq.MaMon, mh.TenMon, mh.SoTinChi,
@@ -563,7 +513,6 @@ BEGIN
     ORDER BY kq.MaHocKy, kq.MaMon;
 END$$
 
--- Dữ liệu thô để lớp BUS tính điểm trung bình và xếp loại học kỳ (R04)
 CREATE PROCEDURE sp_KetQua_LayTheoLopHocKy(IN p_MaLop VARCHAR(15), IN p_MaHocKy CHAR(5))
 BEGIN
     SELECT sv.MaSV, sv.HoTen, mh.SoTinChi, kq.DiemHe4
@@ -574,8 +523,6 @@ BEGIN
     ORDER BY sv.MaSV;
 END$$
 
--- ---------- Truy vấn thống kê nâng cao ----------
--- Top sinh viên có điểm trung bình học kỳ (thang 4) cao nhất của một lớp
 CREATE PROCEDURE sp_TK_SinhVienDiemCaoNhat(IN p_MaLop VARCHAR(15), IN p_MaHocKy CHAR(5), IN p_SoLuong INT)
 BEGIN
     SELECT sv.MaSV, sv.HoTen,
@@ -590,7 +537,6 @@ BEGIN
     LIMIT p_SoLuong;
 END$$
 
--- Các môn có tỉ lệ sinh viên trượt (điểm F) cao nhất trong học kỳ
 CREATE PROCEDURE sp_TK_MonTiLeTruotCaoNhat(IN p_MaHocKy CHAR(5), IN p_SoLuong INT)
 BEGIN
     SELECT mh.MaMon, mh.TenMon,
@@ -604,7 +550,6 @@ BEGIN
     LIMIT p_SoLuong;
 END$$
 
--- Số lớp, số sinh viên, số giảng viên của từng khoa
 CREATE PROCEDURE sp_TK_QuyMoTheoKhoa()
 BEGIN
     SELECT k.MaKhoa, k.TenKhoa,
@@ -617,7 +562,6 @@ BEGIN
     ORDER BY k.MaKhoa;
 END$$
 
--- ---------- Báo cáo (Crystal Report) ----------
 CREATE PROCEDURE sp_BaoCao_DanhSachSinhVien(IN p_MaLop VARCHAR(15))
 BEGIN
     SELECT * FROM v_SinhVienReport WHERE MaLop = p_MaLop ORDER BY MaSV;
@@ -637,9 +581,6 @@ END$$
 
 DELIMITER ;
 
--- =============================================================================
--- PHẦN 4. DỮ LIỆU MẪU (giả lập, >100 bản ghi ở các bảng chính)
--- =============================================================================
 
 SET SESSION cte_max_recursion_depth = 5000;
 
@@ -675,13 +616,11 @@ INSERT INTO Nganh (MaNganh, TenNganh, MaKhoa) VALUES
 ('19', 'Quản trị dịch vụ du lịch và lữ hành', 'DL'),
 ('20', 'Quản trị khách sạn', 'DL');
 
--- Học kỳ từ năm học 2022-2023 đến 2026-2027
 INSERT INTO HocKy (MaHocKy, TenHocKy)
 WITH RECURSIVE Nam (N) AS (SELECT 2022 UNION ALL SELECT N + 1 FROM Nam WHERE N < 2026)
 SELECT CONCAT(N, k.Ky), CONCAT('Học kỳ ', k.Ky, ' năm học ', N, '-', N + 1)
 FROM Nam CROSS JOIN (SELECT 1 AS Ky UNION ALL SELECT 2) k;
 
--- Môn học: 10 môn chung + 10 môn chuyên ngành CNTT + 5 môn cho mỗi ngành = 120 môn
 INSERT INTO MonHoc (MaMon, TenMon, SoTinChi) VALUES
 ('GD01', 'Triết học Mác - Lênin', 3),
 ('GD02', 'Kinh tế chính trị Mác - Lênin', 2),
@@ -715,15 +654,13 @@ CROSS JOIN (SELECT '1' AS So, 'Nhập môn' AS TienTo, '' AS HauTo, 2 AS TinChi
             UNION ALL SELECT '4', 'Chuyên đề', ' 2', 3
             UNION ALL SELECT '5', 'Thực tập', '', 4) m;
 
--- Tài khoản quản trị và cán bộ đào tạo (mật khẩu 123456, băm SHA-256)
 INSERT INTO NguoiDung (TenDangNhap, MatKhau, HoTen, VaiTro, TrangThai) VALUES
 ('admin',  SHA2('123456', 256), 'Quản trị hệ thống', 'Admin', 1),
 ('cbdt01', SHA2('123456', 256), 'Nguyễn Thị Hương', 'CanBoDaoTao', 1),
 ('cbdt02', SHA2('123456', 256), 'Trần Văn Nam', 'CanBoDaoTao', 1),
 ('cbdt03', SHA2('123456', 256), 'Lê Thị Mai', 'CanBoDaoTao', 1),
-('cbdt04', SHA2('123456', 256), 'Phạm Minh Đức', 'CanBoDaoTao', 0);   -- tài khoản bị khóa để thử R09
+('cbdt04', SHA2('123456', 256), 'Phạm Minh Đức', 'CanBoDaoTao', 0);
 
--- Bảng tên dùng chung để sinh họ tên giả lập
 CREATE TEMPORARY TABLE tmpHo (i INT PRIMARY KEY, Ho VARCHAR(20));
 INSERT INTO tmpHo VALUES (0,'Nguyễn'),(1,'Trần'),(2,'Lê'),(3,'Phạm'),(4,'Hoàng'),(5,'Huỳnh'),(6,'Phan'),
   (7,'Vũ'),(8,'Võ'),(9,'Đặng'),(10,'Bùi'),(11,'Đỗ'),(12,'Hồ'),(13,'Ngô'),(14,'Dương');
@@ -738,7 +675,6 @@ INSERT INTO tmpTenNu VALUES (0,'Thị','Anh'),(1,'Ngọc','Ánh'),(2,'Thu','Hà'
   (4,'Thanh','Hương'),(5,'Khánh','Linh'),(6,'Thị','Lan'),(7,'Phương','Mai'),(8,'Bảo','Ngọc'),(9,'Hồng','Nhung'),
   (10,'Minh','Phương'),(11,'Thu','Thảo'),(12,'Thanh','Thủy'),(13,'Huyền','Trang'),(14,'Hải','Yến');
 
--- Giảng viên: 15 người mỗi khoa = 120 người, mỗi người một tài khoản gvXXX
 CREATE TEMPORARY TABLE tmpGV AS
 WITH RECURSIVE So (N) AS (SELECT 0 UNION ALL SELECT N + 1 FROM So WHERE N < 14),
 DsKhoa AS (SELECT MaKhoa, ROW_NUMBER() OVER (ORDER BY MaKhoa) - 1 AS STT FROM Khoa)
@@ -766,13 +702,11 @@ SELECT g.MaGV, nd.HoTen,
        g.MaKhoa, LOWER(g.MaGV)
 FROM tmpGV g JOIN NguoiDung nd ON nd.TenDangNhap = LOWER(g.MaGV);
 
--- Lớp: mỗi ngành một lớp mỗi khóa 2022-2026 = 100 lớp. Mã lớp DH + năm (2 số) + mã ngành, ví dụ DH2601
 INSERT INTO Lop (MaLop, TenLop, MaNganh, KhoaHoc)
 WITH RECURSIVE Nam (N) AS (SELECT 2022 UNION ALL SELECT N + 1 FROM Nam WHERE N < 2026)
 SELECT CONCAT('DH', RIGHT(Nam.N, 2), n.MaNganh), CONCAT(n.TenNganh, ' K', RIGHT(Nam.N, 2)), n.MaNganh, Nam.N
 FROM Nganh n CROSS JOIN Nam;
 
--- Sinh viên: 10 sinh viên mỗi lớp = 1000 sinh viên, mã theo R05
 INSERT INTO SinhVien (MaSV, HoTen, NgaySinh, GioiTinh, SoDienThoai, MaLop)
 WITH RECURSIVE So (N) AS (SELECT 1 UNION ALL SELECT N + 1 FROM So WHERE N < 10),
 DsLop AS (SELECT MaLop, MaNganh, KhoaHoc, ROW_NUMBER() OVER (ORDER BY MaLop) - 1 AS STT FROM Lop),
@@ -790,9 +724,6 @@ JOIN tmpHo h ON h.i = (x.ChiSo * 11) % 15
 JOIN tmpTenNam nam ON nam.i = (x.ChiSo * 13 + 5) % 15
 JOIN tmpTenNu nu ON nu.i = (x.ChiSo * 13 + 5) % 15;
 
--- Xếp môn và phân công: lớp K22-K25 học 3 học kỳ 20251, 20252, 20261; lớp K26 học kỳ 20261.
--- Mỗi học kỳ 4 môn, lấy lần lượt từ danh sách 15 môn của lớp (10 môn chung + 5 môn ngành).
--- Lớp ngành 01 dùng các môn IT thay cho môn ngành để có môn "Lập trình .NET".
 CREATE TEMPORARY TABLE tmpMonCuaNganh (MaNganh CHAR(2), ViTri INT, MaMon VARCHAR(10), PRIMARY KEY (MaNganh, ViTri));
 INSERT INTO tmpMonCuaNganh
 SELECT n.MaNganh, CAST(RIGHT(m.MaMon, 2) AS UNSIGNED) - 1, m.MaMon
@@ -817,8 +748,6 @@ FROM tmpLopHocKy lh
 CROSS JOIN (SELECT 0 AS J UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3) j
 JOIN tmpMonCuaNganh mc ON mc.MaNganh = lh.MaNganh AND mc.ViTri = lh.ThuTu * 4 + j.J;
 
--- Giảng viên dạy là giảng viên của khoa quản lý ngành. Khoa xếp theo mã (CK, CNTT, DDT, ...) nên
--- khoa CNTT có GV016-GV030; GV016 (tài khoản gv016) dạy môn đầu tiên của mọi lớp ngành CNTT
 INSERT INTO PhanCong (MaLop, MaMon, MaHocKy, MaGV)
 SELECT lm.MaLop, lm.MaMon, lm.MaHocKy,
        (SELECT g.MaGV FROM tmpGV g JOIN Nganh n ON n.MaKhoa = g.MaKhoa
@@ -834,18 +763,14 @@ JOIN Nganh n ON n.MaNganh = lm.MaNganh
 JOIN (SELECT MaKhoa, ROW_NUMBER() OVER (ORDER BY MaKhoa) - 1 AS STTKhoa FROM Khoa) k ON k.MaKhoa = n.MaKhoa
 WHERE lm.J > 0;
 
--- Kết quả học tập: điểm giả lập ổn định (dựa trên CRC32 của mã SV + mã môn)
 INSERT INTO KetQua (MaSV, MaMon, MaHocKy, DiemCC, DiemGK, DiemKTHP)
 SELECT sv.MaSV, lm.MaMon, lm.MaHocKy,
-       -- Mỗi sinh viên có "năng lực" riêng (0 - 3 điểm cộng thêm, theo CRC32 của mã SV) để có đủ các mức xếp loại
        LEAST(10, 6 + (CRC32(CONCAT(sv.MaSV, lm.MaMon)) % 31) / 10 + (CRC32(sv.MaSV) % 11) / 10),
        LEAST(10, 3.5 + ((CRC32(CONCAT(sv.MaSV, lm.MaMon)) DIV 7) % 46) / 10 + (CRC32(sv.MaSV) % 31) / 10),
-       -- Học kỳ 20261 của lớp K26 chưa thi kết thúc học phần (thử R10)
        CASE WHEN lm.MaHocKy = '20261' AND sv.MaLop LIKE 'DH26%' THEN NULL
             ELSE LEAST(10, 2 + ((CRC32(CONCAT(sv.MaSV, lm.MaMon)) DIV 13) % 56) / 10 + (CRC32(sv.MaSV) % 31) / 10) END
 FROM tmpLopMon lm JOIN SinhVien sv ON sv.MaLop = lm.MaLop;
 
--- Tính điểm học phần, điểm chữ, thang 4 cho dữ liệu mẫu (cùng quy tắc R02, R03 như lớp BUS)
 UPDATE KetQua
 SET DiemHP = ROUND(DiemCC * 0.1 + DiemGK * 0.3 + DiemKTHP * 0.6, 1)
 WHERE DiemCC IS NOT NULL AND DiemGK IS NOT NULL AND DiemKTHP IS NOT NULL;
@@ -859,7 +784,6 @@ WHERE DiemHP IS NOT NULL;
 
 DROP TEMPORARY TABLE tmpHo, tmpTenNam, tmpTenNu, tmpGV, tmpMonCuaNganh, tmpLopHocKy, tmpLopMon;
 
--- Kiểm tra nhanh số bản ghi mỗi bảng
 SELECT 'NguoiDung' AS Bang, COUNT(*) AS SoBanGhi FROM NguoiDung
 UNION ALL SELECT 'Khoa', COUNT(*) FROM Khoa
 UNION ALL SELECT 'Nganh', COUNT(*) FROM Nganh

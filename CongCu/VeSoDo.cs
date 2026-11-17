@@ -1,7 +1,3 @@
-// =============================================================================
-// Vẽ các sơ đồ minh họa cho báo cáo (kiến trúc, sơ đồ lớp, ERD, mô hình vật lý, quan hệ form)
-// bằng System.Drawing. Cách chạy: CongCu\VeSoDo.bat → ảnh PNG trong TaiLieu\HinhAnh.
-// =============================================================================
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,7 +7,7 @@ using System.IO;
 
 internal class SoDo
 {
-    private const float TiLe = 2f;   // vẽ gấp đôi rồi lưu để ảnh nét khi in
+    private const float TiLe = 2f;
     private readonly Bitmap anh;
     private readonly Graphics g;
     private readonly Font chu = new Font("Segoe UI", 10.5f);
@@ -41,7 +37,6 @@ internal class SoDo
         Console.WriteLine("  + " + Path.GetFileName(duongDan));
     }
 
-    /// <summary>Hộp lớp UML: dòng khuôn mẫu (stereotype), tên, các thuộc tính, các phương thức.</summary>
     public RectangleF Lop(float x, float y, float rong, string khuonMau, string ten, string[] thuocTinh, string[] phuongThuc, Color nen)
     {
         float dong = 17;
@@ -80,7 +75,6 @@ internal class SoDo
         return r;
     }
 
-    /// <summary>Hộp bảng CSDL (mô hình vật lý): tên bảng, các cột kèm kiểu và khóa.</summary>
     public RectangleF Bang(float x, float y, float rong, string ten, string[] cot)
     {
         float dong = 17;
@@ -99,7 +93,6 @@ internal class SoDo
         return r;
     }
 
-    /// <summary>Hình chữ nhật bo tròn có chữ ở giữa (dùng cho sơ đồ kiến trúc, quan hệ form).</summary>
     public RectangleF Khoi(float x, float y, float rong, float cao, string noiDung, Color nen, bool dam)
     {
         RectangleF r = new RectangleF(x, y, rong, cao);
@@ -127,8 +120,6 @@ internal class SoDo
 
     public enum KieuNoi { KeThua, HienThuc, LienKet, PhuThuoc, MotNhieu, Duong }
 
-    /// <summary>Nối hai hộp. KeThua: tam giác rỗng; HienThuc: nét đứt + tam giác rỗng; PhuThuoc: nét đứt + mũi tên;
-    /// MotNhieu: ghi "1" ở đầu nguồn và "n" ở đầu đích.</summary>
     public void Noi(RectangleF tu, RectangleF den, KieuNoi kieu, string nhan)
     {
         PointF a = Tam(tu), b = Tam(den);
@@ -136,7 +127,6 @@ internal class SoDo
         Noi(pa, pb, kieu, nhan);
     }
 
-    /// <summary>Nối hai điểm (dùng khi cần đường đi riêng).</summary>
     public void Noi(PointF pa, PointF pb, KieuNoi kieu, string nhan)
     {
         Pen p = new Pen(Color.Black, 1.3f);
@@ -222,7 +212,6 @@ internal static class VeSoDo
 
     private static string F(string ten) { return Path.Combine(thuMuc, ten); }
 
-    // ---------------------------------------------------------------------------------
     private static void KienTruc()
     {
         SoDo s = new SoDo(900, 560);
@@ -255,7 +244,6 @@ internal static class VeSoDo
         s.Luu(F("SoDo_KienTruc.png"));
     }
 
-    // ---------------------------------------------------------------------------------
     private static void LopThucThe()
     {
         SoDo s = new SoDo(1180, 760);
@@ -291,12 +279,10 @@ internal static class VeSoDo
         s.Luu(F("SoDo_LopThucThe.png"));
     }
 
-    // ---------------------------------------------------------------------------------
     private static void LopBUS()
     {
         SoDo s = new SoDo(1220, 680);
         Color i = SoDo.MauInterface, c = SoDo.MauLop;
-        // Hàng 1: IDanhMucBUS<T> và 5 lớp danh mục cài đặt nó; INguoiDungBUS, ISinhVienBUS
         RectangleF iDm = s.Lop(170, 20, 280, "«interface»", "IDanhMucBUS<T>", null,
             new[] { "LayDanhSach(tuKhoa) : DataTable", "Them(T)", "Sua(T)", "Xoa(ma)" }, i);
         string[] danhMuc = { "KhoaBUS", "NganhBUS", "LopBUS", "HocKyBUS", "MonHocBUS" };
@@ -314,7 +300,6 @@ internal static class VeSoDo
         s.Noi(bNd, iNd, SoDo.KieuNoi.HienThuc, null);
         s.Noi(bSv, iSv, SoDo.KieuNoi.HienThuc, null);
 
-        // Hàng 2: IKetQuaBUS và 4 interface còn lại
         RectangleF iKq = s.Lop(20, 330, 290, "«interface»", "IKetQuaBUS", null,
             new[] { "LayBangDiemLopMon(lop, mon, hk)", "LayBangDiemSinhVien(maSV)", "TinhDiem(KetQua)", "LuuBangDiem(lop, mon, hk, ds)" }, i);
         RectangleF bKq = s.Lop(40, 540, 250, null, "KetQuaBUS", null, new[] { "KiemTraQuyenXem(...)  {R07}" }, c);
@@ -332,7 +317,6 @@ internal static class VeSoDo
         s.Luu(F("SoDo_LopBUS.png"));
     }
 
-    // ---------------------------------------------------------------------------------
     private static void KeThuaForm()
     {
         SoDo s = new SoDo(1180, 470);
@@ -357,7 +341,6 @@ internal static class VeSoDo
         s.Luu(F("SoDo_KeThuaForm.png"));
     }
 
-    // ---------------------------------------------------------------------------------
     private static void ERD()
     {
         SoDo s = new SoDo(1120, 640);
@@ -389,7 +372,6 @@ internal static class VeSoDo
         s.Luu(F("SoDo_ERD.png"));
     }
 
-    // ---------------------------------------------------------------------------------
     private static void MoHinhVatLy()
     {
         SoDo s = new SoDo(1200, 760);
@@ -419,7 +401,6 @@ internal static class VeSoDo
         s.Luu(F("SoDo_MoHinhVatLy.png"));
     }
 
-    // ---------------------------------------------------------------------------------
     private static void QuanHeForm()
     {
         SoDo s = new SoDo(1100, 560);
@@ -439,7 +420,6 @@ internal static class VeSoDo
             if (con[k] == "frmCayDonVi") cay = r;
             if (con[k] == "frmBangDiem") bd = r;
         }
-        // frmBangDiem mở frmCayDonVi và nhận lại mã sinh viên qua delegate
         float xp = cay.Right + 35;
         s.Noi(new PointF(bd.Right, bd.Y + bd.Height / 2), new PointF(xp, bd.Y + bd.Height / 2), SoDo.KieuNoi.Duong, null);
         s.Noi(new PointF(xp, bd.Y + bd.Height / 2), new PointF(xp, cay.Y + cay.Height / 2), SoDo.KieuNoi.Duong, null);
@@ -453,7 +433,6 @@ internal static class VeSoDo
         s.Luu(F("SoDo_QuanHeForm.png"));
     }
 
-    // ---------------------------------------------------------------------------------
     private static void TuanTuThemSinhVien()
     {
         SoDo s = new SoDo(1100, 600);

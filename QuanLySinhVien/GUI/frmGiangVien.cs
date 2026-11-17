@@ -6,7 +6,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>Quản lý giảng viên (F04).</summary>
     public partial class frmGiangVien : frmDanhMucBase
     {
         private readonly IGiangVienBUS giangVienBus = new GiangVienBUS();
@@ -75,7 +74,6 @@ namespace QuanLySinhVien.GUI
 
         private GiangVien DocForm()
         {
-            // Các thuộc tính HoTen, SoDienThoai tự kiểm tra hợp lệ khi gán (lớp Nguoi)
             GiangVien gv = new GiangVien();
             gv.MaGV = txtMaGV.Text;
             gv.HoTen = txtHoTen.Text;

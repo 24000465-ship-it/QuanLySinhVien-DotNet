@@ -47,18 +47,12 @@ namespace QuanLySinhVien.GUI
             ((System.ComponentModel.ISupportInitialize)(this.dgvSinhVien)).BeginInit();
             this.pnlSinhVien.SuspendLayout();
             this.SuspendLayout();
-            //
-            // tabChinh
-            //
             this.tabChinh.Controls.Add(this.tabLopMon);
             this.tabChinh.Controls.Add(this.tabSinhVien);
             this.tabChinh.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabChinh.Name = "tabChinh";
             this.tabChinh.SelectedIndex = 0;
             this.tabChinh.Size = new System.Drawing.Size(1000, 560);
-            //
-            // tabLopMon
-            //
             this.tabLopMon.Controls.Add(this.dgvLopMon);
             this.tabLopMon.Controls.Add(this.pnlLopMon);
             this.tabLopMon.Name = "tabLopMon";
@@ -118,9 +112,6 @@ namespace QuanLySinhVien.GUI
             this.dgvLopMon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvLopMon.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvLopMon.Name = "dgvLopMon";
-            //
-            // tabSinhVien
-            //
             this.tabSinhVien.Controls.Add(this.dgvSinhVien);
             this.tabSinhVien.Controls.Add(this.pnlSinhVien);
             this.tabSinhVien.Name = "tabSinhVien";
@@ -169,9 +160,6 @@ namespace QuanLySinhVien.GUI
             this.dgvSinhVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSinhVien.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSinhVien.Name = "dgvSinhVien";
-            //
-            // frmBangDiem
-            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 560);

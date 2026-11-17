@@ -7,7 +7,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>Quản lý tài khoản người dùng (F02) — chỉ Admin.</summary>
     public partial class frmNguoiDung : frmDanhMucBase
     {
         private readonly INguoiDungBUS nguoiDungBus = new NguoiDungBUS();
@@ -19,7 +18,6 @@ namespace QuanLySinhVien.GUI
 
         protected override void KhoiTao()
         {
-            // Tài khoản không xóa (giữ lịch sử), chỉ khóa / mở khóa
             btnXoa.Visible = false;
             DataTable vaiTro = new DataTable();
             vaiTro.Columns.Add("Ma");
@@ -66,7 +64,6 @@ namespace QuanLySinhVien.GUI
             txtTenDangNhap.ReadOnly = !(choPhep && dangThem);
             txtHoTen.ReadOnly = !choPhep;
             cboVaiTro.Enabled = choPhep;
-            // Mật khẩu chỉ nhập khi tạo tài khoản; đổi mật khẩu dùng nút "Cấp lại mật khẩu"
             txtMatKhau.Enabled = choPhep && dangThem;
             btnKhoa.Enabled = !choPhep;
             btnCapLaiMatKhau.Enabled = !choPhep;

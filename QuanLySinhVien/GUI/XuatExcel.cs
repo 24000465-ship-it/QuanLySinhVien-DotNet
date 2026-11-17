@@ -6,14 +6,8 @@ using System.Windows.Forms;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>
-    /// Xuất dữ liệu ra Excel (F12). Máy có cài Microsoft Excel thì điều khiển Excel trực tiếp
-    /// (Office Interop, gọi muộn qua "dynamic" nên không cần thêm tham chiếu);
-    /// không có Excel thì lưu file CSV mở được bằng Excel.
-    /// </summary>
     public static class XuatExcel
     {
-        /// <summary>Xuất các cột đang hiển thị của DataGridView.</summary>
         public static void TuLuoi(DataGridView dgv, string tieuDe)
         {
             if (dgv.Rows.Count == 0)
@@ -55,7 +49,6 @@ namespace QuanLySinhVien.GUI
                 dynamic sach = excel.Workbooks.Add();
                 dynamic trang = sach.ActiveSheet;
 
-                // Dòng 1: tiêu đề báo cáo; dòng 3: tiêu đề cột; từ dòng 4: dữ liệu
                 trang.Cells[1, 1] = tieuDe;
                 trang.Cells[1, 1].Font.Bold = true;
                 trang.Cells[1, 1].Font.Size = 14;
@@ -63,10 +56,9 @@ namespace QuanLySinhVien.GUI
                 {
                     trang.Cells[3, c + 1] = bang.Columns[c].ColumnName;
                     trang.Cells[3, c + 1].Font.Bold = true;
-                    trang.Cells[3, c + 1].Interior.Color = 0xEBD8C6; // nền xanh nhạt (BGR)
+                    trang.Cells[3, c + 1].Interior.Color = 0xEBD8C6;
                 }
 
-                // Ghi cả khối dữ liệu một lần cho nhanh
                 object[,] duLieu = new object[bang.Rows.Count, bang.Columns.Count];
                 for (int r = 0; r < bang.Rows.Count; r++)
                     for (int c = 0; c < bang.Columns.Count; c++)
@@ -106,7 +98,6 @@ namespace QuanLySinhVien.GUI
                     for (int c = 0; c < bang.Columns.Count; c++) o[c] = Csv(dong[c].ToString());
                     sb.AppendLine(string.Join(",", o));
                 }
-                // UTF-8 có BOM để Excel hiển thị đúng tiếng Việt
                 File.WriteAllText(hopThoai.FileName, sb.ToString(), new UTF8Encoding(true));
                 GiaoDien.ThongBao("Đã lưu file: " + hopThoai.FileName);
             }

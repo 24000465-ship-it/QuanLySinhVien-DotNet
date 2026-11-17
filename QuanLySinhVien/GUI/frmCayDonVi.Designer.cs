@@ -27,9 +27,6 @@ namespace QuanLySinhVien.GUI
             this.splitChinh.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSinhVien)).BeginInit();
             this.SuspendLayout();
-            //
-            // splitChinh
-            //
             this.splitChinh.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitChinh.Location = new System.Drawing.Point(0, 0);
             this.splitChinh.Name = "splitChinh";
@@ -38,17 +35,11 @@ namespace QuanLySinhVien.GUI
             this.splitChinh.Panel2.Controls.Add(this.lblTieuDe);
             this.splitChinh.Size = new System.Drawing.Size(1000, 560);
             this.splitChinh.SplitterDistance = 380;
-            //
-            // tvDonVi
-            //
             this.tvDonVi.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvDonVi.HideSelection = false;
             this.tvDonVi.Name = "tvDonVi";
             this.tvDonVi.TabIndex = 0;
             this.tvDonVi.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDonVi_AfterSelect);
-            //
-            // lblTieuDe
-            //
             this.lblTieuDe.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTieuDe.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblTieuDe.Name = "lblTieuDe";
@@ -56,17 +47,11 @@ namespace QuanLySinhVien.GUI
             this.lblTieuDe.Size = new System.Drawing.Size(616, 32);
             this.lblTieuDe.Text = "Chọn một lớp để xem danh sách sinh viên";
             this.lblTieuDe.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
-            // dgvSinhVien
-            //
             this.dgvSinhVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSinhVien.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSinhVien.Name = "dgvSinhVien";
             this.dgvSinhVien.TabIndex = 1;
             this.dgvSinhVien.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSinhVien_CellDoubleClick);
-            //
-            // frmCayDonVi
-            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 560);

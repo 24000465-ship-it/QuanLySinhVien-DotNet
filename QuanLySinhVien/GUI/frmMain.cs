@@ -5,7 +5,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>Form chính: menu chỉ hiện chức năng đúng vai trò người dùng (yêu cầu phi chức năng).</summary>
     public partial class frmMain : Form
     {
         public frmMain()
@@ -24,15 +23,14 @@ namespace QuanLySinhVien.GUI
             bool laQuanLy = nd.LaQuanLyDaoTao;
             bool laGiangVien = nd.VaiTro == NguoiDung.VaiTroGiangVien;
 
-            mnuQuanLyTaiKhoan.Visible = laAdmin;           // F02
-            mnuDanhMuc.Visible = laQuanLy;                 // F04, F05
-            mnuSinhVien.Visible = laQuanLy;                // F03
-            mnuDaoTao.Visible = laQuanLy;                  // F06, F07
-            mnuNhapDiem.Visible = laGiangVien;             // F08
-            mnuThongKe.Visible = laQuanLy;                 // F11
+            mnuQuanLyTaiKhoan.Visible = laAdmin;
+            mnuDanhMuc.Visible = laQuanLy;
+            mnuSinhVien.Visible = laQuanLy;
+            mnuDaoTao.Visible = laQuanLy;
+            mnuNhapDiem.Visible = laGiangVien;
+            mnuThongKe.Visible = laQuanLy;
         }
 
-        /// <summary>Mở form con trong cửa sổ chính; form đã mở thì chỉ đưa lên trước.</summary>
         private void MoForm<T>() where T : Form, new()
         {
             foreach (Form con in MdiChildren)

@@ -5,7 +5,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.BUS
 {
-    /// <summary>Nghiệp vụ quản lý học kỳ (F04, R11).</summary>
     public class HocKyBUS : IDanhMucBUS<HocKy>
     {
         private readonly HocKyDAL dal = new HocKyDAL();
@@ -39,7 +38,6 @@ namespace QuanLySinhVien.BUS
 
         private void KiemTra(HocKy hocKy)
         {
-            // R11: mã học kỳ thống nhất dạng NNNNK
             if (!TienIch.LaMaHocKyHopLe(hocKy.MaHocKy))
                 throw new LoiNghiepVu("Mã học kỳ phải có dạng NNNNK, ví dụ 20261 = HK1 năm học 2026-2027.", "MaHocKy");
             if (string.IsNullOrWhiteSpace(hocKy.TenHocKy))

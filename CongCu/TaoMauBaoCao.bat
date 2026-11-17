@@ -1,6 +1,4 @@
 @echo off
-rem Biên dịch và chạy công cụ tạo 3 mẫu Crystal Report vào QuanLySinhVien\CrystalReport
-rem Yêu cầu: đã build phần mềm (bin\Debug), MySQL đang chạy, CSDL qlsv đã tạo.
 chcp 65001 >nul
 setlocal
 set GAC64=C:\Windows\Microsoft.NET\assembly\GAC_64
@@ -21,7 +19,6 @@ set CSC=C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe
   "%~dp0TaoMauBaoCao.cs"
 if errorlevel 1 exit /b 1
 
-rem Dùng chung chuỗi kết nối với phần mềm
 copy /y "%~dp0MauTrong.rpt" "%BIN%\MauTrong.rpt" >nul
 copy /y "%BIN%\QuanLySinhVien.exe.config" "%BIN%\TaoMauBaoCao.exe.config" >nul
 "%BIN%\TaoMauBaoCao.exe" "%~dp0..\QuanLySinhVien\CrystalReport"

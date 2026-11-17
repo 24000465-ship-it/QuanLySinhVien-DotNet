@@ -36,9 +36,6 @@ namespace QuanLySinhVien.GUI
             this.pnlChon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvXemTruoc)).BeginInit();
             this.SuspendLayout();
-            //
-            // pnlChon
-            //
             this.pnlChon.Controls.Add(this.lblLoaiBaoCao);
             this.pnlChon.Controls.Add(this.cboLoaiBaoCao);
             this.pnlChon.Controls.Add(this.lblHocKy);
@@ -115,25 +112,16 @@ namespace QuanLySinhVien.GUI
             this.lblTrangThai.ForeColor = System.Drawing.Color.FromArgb(0, 84, 147);
             this.lblTrangThai.Location = new System.Drawing.Point(645, 50);
             this.lblTrangThai.Name = "lblTrangThai";
-            //
-            // crvBaoCao
-            //
             this.crvBaoCao.ActiveViewIndex = -1;
             this.crvBaoCao.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.crvBaoCao.Cursor = System.Windows.Forms.Cursors.Default;
             this.crvBaoCao.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crvBaoCao.Name = "crvBaoCao";
             this.crvBaoCao.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
-            //
-            // dgvXemTruoc
-            //
             this.dgvXemTruoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvXemTruoc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvXemTruoc.Name = "dgvXemTruoc";
             this.dgvXemTruoc.Visible = false;
-            //
-            // frmBaoCao
-            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 600);

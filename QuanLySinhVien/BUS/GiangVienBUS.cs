@@ -6,7 +6,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.BUS
 {
-    /// <summary>Nghiệp vụ quản lý giảng viên (F04).</summary>
     public class GiangVienBUS : IGiangVienBUS
     {
         private readonly GiangVienDAL dal = new GiangVienDAL();
@@ -33,7 +32,6 @@ namespace QuanLySinhVien.BUS
         public void Xoa(string maGV)
         {
             PhienDangNhap.YeuCauQuanLyDaoTao();
-            // R08: không xóa giảng viên đã được phân công giảng dạy
             if (dal.DemPhuThuoc(maGV) > 0)
                 throw new LoiNghiepVu("Không thể xóa giảng viên đã được phân công giảng dạy.");
             dal.Xoa(maGV);
@@ -41,7 +39,6 @@ namespace QuanLySinhVien.BUS
 
         private void KiemTra(GiangVien gv)
         {
-            // Họ tên và số điện thoại đã được lớp Nguoi tự kiểm tra khi gán giá trị
             if (string.IsNullOrWhiteSpace(gv.MaGV))
                 throw new LoiNghiepVu("Mã giảng viên không được để trống.", "MaGV");
             if (string.IsNullOrEmpty(gv.MaKhoa))

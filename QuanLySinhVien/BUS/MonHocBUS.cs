@@ -5,7 +5,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.BUS
 {
-    /// <summary>Nghiệp vụ quản lý môn học (F05).</summary>
     public class MonHocBUS : IDanhMucBUS<MonHoc>
     {
         private readonly MonHocDAL dal = new MonHocDAL();
@@ -32,7 +31,6 @@ namespace QuanLySinhVien.BUS
         public void Xoa(string maMon)
         {
             PhienDangNhap.YeuCauQuanLyDaoTao();
-            // R08: không xóa môn đã được xếp cho lớp hoặc đã có điểm
             if (dal.DemPhuThuoc(maMon) > 0)
                 throw new LoiNghiepVu("Không thể xóa môn học đã được xếp lớp hoặc đã có điểm.");
             dal.Xoa(maMon);

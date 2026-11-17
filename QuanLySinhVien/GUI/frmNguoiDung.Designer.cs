@@ -30,9 +30,6 @@ namespace QuanLySinhVien.GUI
             this.pnlNhapLieu.SuspendLayout();
             this.pnlNut.SuspendLayout();
             this.SuspendLayout();
-            //
-            // pnlNhapLieu
-            //
             this.pnlNhapLieu.Controls.Add(this.lblTenDangNhap);
             this.pnlNhapLieu.Controls.Add(this.txtTenDangNhap);
             this.pnlNhapLieu.Controls.Add(this.lblHoTen);
@@ -41,19 +38,10 @@ namespace QuanLySinhVien.GUI
             this.pnlNhapLieu.Controls.Add(this.cboVaiTro);
             this.pnlNhapLieu.Controls.Add(this.lblMatKhau);
             this.pnlNhapLieu.Controls.Add(this.txtMatKhau);
-            //
-            // pnlNut: thêm 2 nút riêng của tài khoản
-            //
             this.pnlNut.Controls.Add(this.btnKhoa);
             this.pnlNut.Controls.Add(this.btnCapLaiMatKhau);
-            //
-            // grpThongTin
-            //
             this.grpThongTin.Size = new System.Drawing.Size(900, 110);
             this.grpThongTin.Text = "Thông tin tài khoản";
-            //
-            // các ô nhập
-            //
             this.lblTenDangNhap.AutoSize = true;
             this.lblTenDangNhap.Location = new System.Drawing.Point(15, 15);
             this.lblTenDangNhap.Name = "lblTenDangNhap";
@@ -90,23 +78,14 @@ namespace QuanLySinhVien.GUI
             this.txtMatKhau.Size = new System.Drawing.Size(150, 23);
             this.txtMatKhau.TabIndex = 3;
             this.txtMatKhau.UseSystemPasswordChar = true;
-            //
-            // btnKhoa
-            //
             this.btnKhoa.Name = "btnKhoa";
             this.btnKhoa.Size = new System.Drawing.Size(120, 30);
             this.btnKhoa.Text = "Khóa tài khoản";
             this.btnKhoa.Click += new System.EventHandler(this.btnKhoa_Click);
-            //
-            // btnCapLaiMatKhau
-            //
             this.btnCapLaiMatKhau.Name = "btnCapLaiMatKhau";
             this.btnCapLaiMatKhau.Size = new System.Drawing.Size(140, 30);
             this.btnCapLaiMatKhau.Text = "Cấp lại mật khẩu";
             this.btnCapLaiMatKhau.Click += new System.EventHandler(this.btnCapLaiMatKhau_Click);
-            //
-            // frmNguoiDung
-            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.Name = "frmNguoiDung";
             this.Text = "Quản lý tài khoản";

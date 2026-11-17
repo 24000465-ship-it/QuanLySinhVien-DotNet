@@ -9,17 +9,12 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>
-    /// Nhập điểm (F08, UC04) — dành cho giảng viên. Chỉ hiện các lớp - môn được phân công (R07);
-    /// nhập điểm CC, GK, KTHP trên lưới, hệ thống tự tính điểm học phần, điểm chữ, thang 4 (F09).
-    /// </summary>
     public partial class frmNhapDiem : Form
     {
         private readonly IKetQuaBUS ketQuaBus = new KetQuaBUS();
         private readonly IPhanCongBUS phanCongBus = new PhanCongBUS();
         private readonly IDanhMucBUS<HocKy> hocKyBus = new HocKyBUS();
 
-        // Lớp - môn đang mở trên lưới (để lưu đúng chỗ dù người dùng đổi lựa chọn sau đó)
         private string maLopDangMo;
         private string maMonDangMo;
         private string maHocKyDangMo;
@@ -48,7 +43,6 @@ namespace QuanLySinhVien.GUI
             NapLopMon();
         }
 
-        /// <summary>R07: chỉ lấy các lớp - môn giảng viên đăng nhập được phân công trong học kỳ.</summary>
         private void NapLopMon()
         {
             DataTable ds = phanCongBus.LayCuaGiangVien(PhienDangNhap.NguoiDungHienTai.MaGV, GiaoDien.GiaTri(cboHocKy));
@@ -105,7 +99,6 @@ namespace QuanLySinhVien.GUI
             return giaTri == DBNull.Value ? "" : Convert.ToDecimal(giaTri).ToString("0.0");
         }
 
-        /// <summary>Đọc một dòng của lưới thành đối tượng KetQua (thuộc tính điểm tự kiểm tra R01).</summary>
         private KetQua DocDong(DataGridViewRow dong)
         {
             KetQua kq = new KetQua();
@@ -116,7 +109,6 @@ namespace QuanLySinhVien.GUI
             return kq;
         }
 
-        /// <summary>Nhập xong một ô thì tính thử ngay điểm học phần của dòng đó để giảng viên xem trước.</summary>
         private void dgvDiem_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow dong = dgvDiem.Rows[e.RowIndex];
@@ -133,7 +125,6 @@ namespace QuanLySinhVien.GUI
             }
             catch (LoiNghiepVu loi)
             {
-                // R01: tô đỏ ô nhập sai
                 o.ErrorText = loi.Message;
                 o.Style.BackColor = Color.MistyRose;
                 return;
@@ -166,7 +157,6 @@ namespace QuanLySinhVien.GUI
                 }
                 catch (LoiNghiepVu loi)
                 {
-                    // R01: báo lỗi, đưa con trỏ tới dòng sai và không lưu dòng nào
                     dgvDiem.CurrentCell = dong.Cells[colDiemCC.Index];
                     GiaoDien.BaoLoi(loi.Message + "\nBảng điểm chưa được lưu.");
                     return;

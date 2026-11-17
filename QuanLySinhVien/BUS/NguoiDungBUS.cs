@@ -5,7 +5,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.BUS
 {
-    /// <summary>Nghiệp vụ tài khoản người dùng (F01, F02).</summary>
     public class NguoiDungBUS : INguoiDungBUS
     {
         public const string MatKhauMacDinh = "123456";
@@ -13,7 +12,6 @@ namespace QuanLySinhVien.BUS
 
         private readonly NguoiDungDAL dal = new NguoiDungDAL();
 
-        /// <summary>Kiểm tra kết nối CSDL trước khi đăng nhập.</summary>
         public bool KiemTraKetNoi(out string thongBaoLoi)
         {
             return DBHelper.KiemTraKetNoi(out thongBaoLoi);
@@ -27,7 +25,6 @@ namespace QuanLySinhVien.BUS
                 throw new LoiNghiepVu("Vui lòng nhập mật khẩu.", "MatKhau");
 
             NguoiDung nd = dal.DangNhap(tenDangNhap.Trim(), TienIch.BamMatKhau(matKhau));
-            // Không nói rõ sai tên hay sai mật khẩu để tránh lộ thông tin tài khoản
             if (nd == null)
                 throw new LoiNghiepVu("Tên đăng nhập hoặc mật khẩu không đúng.", "MatKhau");
             if (!nd.TrangThai)
@@ -64,7 +61,6 @@ namespace QuanLySinhVien.BUS
             PhienDangNhap.YeuCauAdmin();
             KiemTraThongTin(nguoiDung);
             KiemTraMatKhauMoi(matKhau, "MatKhau");
-            // R09: tên đăng nhập không trùng
             if (dal.TonTai(nguoiDung.TenDangNhap))
                 throw new LoiNghiepVu("Tên đăng nhập đã tồn tại.", "TenDangNhap");
             dal.Them(nguoiDung, TienIch.BamMatKhau(matKhau));

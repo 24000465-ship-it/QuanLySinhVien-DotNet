@@ -6,7 +6,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>Xếp môn theo cả lớp (F06, UC03): chọn học kỳ + lớp + môn, hệ thống tạo kết quả cho mọi sinh viên.</summary>
     public partial class frmXepMon : Form
     {
         private readonly IXepMonBUS xepMonBus = new XepMonBUS();
@@ -43,7 +42,6 @@ namespace QuanLySinhVien.GUI
             TaiLai();
         }
 
-        /// <summary>Hiện các môn đã xếp và tổng tín chỉ học kỳ của từng sinh viên trong lớp.</summary>
         private void TaiLai()
         {
             string maLop = GiaoDien.GiaTri(cboLop);

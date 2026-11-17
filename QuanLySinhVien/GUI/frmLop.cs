@@ -7,7 +7,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>Quản lý lớp hành chính (F04).</summary>
     public partial class frmLop : frmDanhMucBase
     {
         private readonly IDanhMucBUS<Lop> lopBus = new LopBUS();
@@ -56,7 +55,6 @@ namespace QuanLySinhVien.GUI
             if (choPhep && dangThem) GoiYMaVaTen();
         }
 
-        /// <summary>Khi thêm mới: chọn ngành và năm thì tự gợi ý mã lớp, tên lớp (vẫn sửa được).</summary>
         private void GoiYMaVaTen()
         {
             if (cheDoHienTai != CheDo.Them || cboMaNganh.SelectedItem == null) return;

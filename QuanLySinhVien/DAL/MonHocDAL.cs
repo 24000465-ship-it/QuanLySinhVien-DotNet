@@ -4,7 +4,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.DAL
 {
-    /// <summary>Truy cập bảng MonHoc.</summary>
     public class MonHocDAL
     {
         public DataTable LayDanhSach(string tuKhoa)
@@ -33,7 +32,6 @@ namespace QuanLySinhVien.DAL
             DBHelper.ThucThi("sp_MonHoc_Xoa", DBHelper.TS("@p_MaMon", maMon));
         }
 
-        /// <summary>Số dòng kết quả + phân công của môn (R08).</summary>
         public int DemPhuThuoc(string maMon)
         {
             return Convert.ToInt32(DBHelper.LayGiaTri("sp_MonHoc_DemPhuThuoc", DBHelper.TS("@p_MaMon", maMon)));

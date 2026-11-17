@@ -4,10 +4,8 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.DAL
 {
-    /// <summary>Truy cập bảng SinhVien.</summary>
     public class SinhVienDAL
     {
-        /// <summary>Tìm theo mã SV / họ tên và lọc theo lớp (để trống = không lọc).</summary>
         public DataTable LayDanhSach(string tuKhoa, string maLop)
         {
             return DBHelper.LayBang("sp_SinhVien_LayDanhSach",
@@ -15,7 +13,6 @@ namespace QuanLySinhVien.DAL
                 DBHelper.TS("@p_MaLop", maLop));
         }
 
-        /// <summary>Sinh mã sinh viên tiếp theo cho lớp theo quy tắc R05.</summary>
         public string SinhMa(string maLop)
         {
             return Convert.ToString(DBHelper.LayGiaTri("sp_SinhVien_SinhMa", DBHelper.TS("@p_MaLop", maLop)));
@@ -36,7 +33,6 @@ namespace QuanLySinhVien.DAL
             DBHelper.ThucThi("sp_SinhVien_Xoa", DBHelper.TS("@p_MaSV", maSV));
         }
 
-        /// <summary>Số môn sinh viên đã có điểm (R08).</summary>
         public int DemDiem(string maSV)
         {
             return Convert.ToInt32(DBHelper.LayGiaTri("sp_SinhVien_DemDiem", DBHelper.TS("@p_MaSV", maSV)));

@@ -4,7 +4,6 @@ using QuanLySinhVien.BUS;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>Đổi mật khẩu của người đang đăng nhập (F01).</summary>
     public partial class frmDoiMatKhau : Form
     {
         private readonly NguoiDungBUS nguoiDungBus = new NguoiDungBUS();

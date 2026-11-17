@@ -40,9 +40,6 @@ namespace QuanLySinhVien.GUI
             ((System.ComponentModel.ISupportInitialize)(this.dgvDanhSach)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
-            //
-            // pnlTimKiem
-            //
             this.pnlTimKiem.Controls.Add(this.lblTongSo);
             this.pnlTimKiem.Controls.Add(this.btnLamMoi);
             this.pnlTimKiem.Controls.Add(this.txtTimKiem);
@@ -52,42 +49,27 @@ namespace QuanLySinhVien.GUI
             this.pnlTimKiem.Name = "pnlTimKiem";
             this.pnlTimKiem.Size = new System.Drawing.Size(900, 42);
             this.pnlTimKiem.TabIndex = 0;
-            //
-            // lblTimKiem
-            //
             this.lblTimKiem.AutoSize = true;
             this.lblTimKiem.Location = new System.Drawing.Point(12, 13);
             this.lblTimKiem.Name = "lblTimKiem";
             this.lblTimKiem.Text = "Tìm kiếm (mã, tên):";
-            //
-            // txtTimKiem
-            //
             this.txtTimKiem.Location = new System.Drawing.Point(130, 10);
             this.txtTimKiem.Name = "txtTimKiem";
             this.txtTimKiem.Size = new System.Drawing.Size(260, 23);
             this.txtTimKiem.TabIndex = 0;
             this.txtTimKiem.TextChanged += new System.EventHandler(this.txtTimKiem_TextChanged);
-            //
-            // btnLamMoi
-            //
             this.btnLamMoi.Location = new System.Drawing.Point(398, 9);
             this.btnLamMoi.Name = "btnLamMoi";
             this.btnLamMoi.Size = new System.Drawing.Size(80, 25);
             this.btnLamMoi.TabIndex = 1;
             this.btnLamMoi.Text = "Làm mới";
             this.btnLamMoi.Click += new System.EventHandler(this.btnLamMoi_Click);
-            //
-            // lblTongSo
-            //
             this.lblTongSo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTongSo.Location = new System.Drawing.Point(720, 13);
             this.lblTongSo.Name = "lblTongSo";
             this.lblTongSo.Size = new System.Drawing.Size(170, 18);
             this.lblTongSo.Text = "Tổng số: 0";
             this.lblTongSo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
-            // grpThongTin
-            //
             this.grpThongTin.Controls.Add(this.pnlNhapLieu);
             this.grpThongTin.Dock = System.Windows.Forms.DockStyle.Top;
             this.grpThongTin.Location = new System.Drawing.Point(0, 42);
@@ -96,17 +78,11 @@ namespace QuanLySinhVien.GUI
             this.grpThongTin.TabIndex = 1;
             this.grpThongTin.TabStop = false;
             this.grpThongTin.Text = "Thông tin";
-            //
-            // pnlNhapLieu
-            //
             this.pnlNhapLieu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlNhapLieu.Location = new System.Drawing.Point(3, 19);
             this.pnlNhapLieu.Name = "pnlNhapLieu";
             this.pnlNhapLieu.Size = new System.Drawing.Size(894, 108);
             this.pnlNhapLieu.TabIndex = 0;
-            //
-            // pnlNut
-            //
             this.pnlNut.Controls.Add(this.btnThem);
             this.pnlNut.Controls.Add(this.btnSua);
             this.pnlNut.Controls.Add(this.btnXoa);
@@ -119,9 +95,6 @@ namespace QuanLySinhVien.GUI
             this.pnlNut.Padding = new System.Windows.Forms.Padding(8, 6, 0, 0);
             this.pnlNut.Size = new System.Drawing.Size(900, 44);
             this.pnlNut.TabIndex = 2;
-            //
-            // các nút lệnh
-            //
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(90, 30);
             this.btnThem.Text = "Thêm";
@@ -146,9 +119,6 @@ namespace QuanLySinhVien.GUI
             this.btnXuatExcel.Size = new System.Drawing.Size(100, 30);
             this.btnXuatExcel.Text = "Xuất Excel";
             this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
-            //
-            // dgvDanhSach
-            //
             this.dgvDanhSach.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDanhSach.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDanhSach.Location = new System.Drawing.Point(0, 216);
@@ -156,13 +126,7 @@ namespace QuanLySinhVien.GUI
             this.dgvDanhSach.Size = new System.Drawing.Size(900, 334);
             this.dgvDanhSach.TabIndex = 3;
             this.dgvDanhSach.SelectionChanged += new System.EventHandler(this.dgvDanhSach_SelectionChanged);
-            //
-            // errorProvider
-            //
             this.errorProvider.ContainerControl = this;
-            //
-            // frmDanhMucBase
-            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(900, 550);

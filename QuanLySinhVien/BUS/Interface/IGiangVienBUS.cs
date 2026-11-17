@@ -3,7 +3,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.BUS.Interface
 {
-    /// <summary>Nghiệp vụ quản lý giảng viên (F04).</summary>
     public interface IGiangVienBUS
     {
         DataTable LayDanhSach(string tuKhoa, string maKhoa);

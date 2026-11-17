@@ -1,14 +1,9 @@
-﻿# =============================================================================
-# Chụp ảnh màn hình các form (dữ liệu thật) để đưa vào báo cáo — lưu vào TaiLieu\HinhAnh.
-# Cách chạy: powershell -STA -ExecutionPolicy Bypass -File CongCu\ChupManHinh.ps1 (sau khi build Debug)
-# =============================================================================
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 $goc = Split-Path -Parent $PSScriptRoot
 $bin = Join-Path $goc "QuanLySinhVien\bin\Debug"
 $raAnh = Join-Path $goc "TaiLieu\HinhAnh"
 New-Item -ItemType Directory -Force $raAnh | Out-Null
 
-# Dùng file .config của phần mềm (chuỗi kết nối) thay cho file của powershell.exe
 [System.AppDomain]::CurrentDomain.SetData("APP_CONFIG_FILE", "$bin\QuanLySinhVien.exe.config")
 Add-Type -AssemblyName System.Configuration
 $cm = [System.Configuration.ConfigurationManager]

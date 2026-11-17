@@ -6,7 +6,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>Quản lý học kỳ (F04, R11).</summary>
     public partial class frmHocKy : frmDanhMucBase
     {
         private readonly IDanhMucBUS<HocKy> hocKyBus = new HocKyBUS();
@@ -40,7 +39,6 @@ namespace QuanLySinhVien.GUI
             txtTenHocKy.ReadOnly = !choPhep;
         }
 
-        /// <summary>Gõ đủ mã học kỳ hợp lệ thì tự điền tên học kỳ.</summary>
         private void txtMaHocKy_TextChanged(object sender, EventArgs e)
         {
             if (cheDoHienTai == CheDo.Them && TienIch.LaMaHocKyHopLe(txtMaHocKy.Text))

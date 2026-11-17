@@ -1,6 +1,5 @@
 namespace QuanLySinhVien.DAL.Entity
 {
-    /// <summary>Giảng viên dạy một môn cho một lớp trong một học kỳ (R12: mỗi bộ ba chỉ một giảng viên).</summary>
     public class PhanCong
     {
         public string MaLop { get; set; }

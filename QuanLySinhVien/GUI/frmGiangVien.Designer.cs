@@ -38,9 +38,6 @@ namespace QuanLySinhVien.GUI
             this.pnlTimKiem.SuspendLayout();
             this.pnlNhapLieu.SuspendLayout();
             this.SuspendLayout();
-            //
-            // pnlTimKiem: thêm bộ lọc theo khoa
-            //
             this.pnlTimKiem.Controls.Add(this.lblLocKhoa);
             this.pnlTimKiem.Controls.Add(this.cboLocKhoa);
             this.lblLocKhoa.AutoSize = true;
@@ -53,9 +50,6 @@ namespace QuanLySinhVien.GUI
             this.cboLocKhoa.Size = new System.Drawing.Size(220, 23);
             this.cboLocKhoa.TabIndex = 2;
             this.cboLocKhoa.SelectedIndexChanged += new System.EventHandler(this.cboLocKhoa_SelectedIndexChanged);
-            //
-            // pnlNhapLieu
-            //
             this.pnlNhapLieu.Controls.Add(this.lblMaGV);
             this.pnlNhapLieu.Controls.Add(this.txtMaGV);
             this.pnlNhapLieu.Controls.Add(this.lblHoTen);
@@ -72,14 +66,8 @@ namespace QuanLySinhVien.GUI
             this.pnlNhapLieu.Controls.Add(this.cboMaKhoa);
             this.pnlNhapLieu.Controls.Add(this.lblTenDangNhap);
             this.pnlNhapLieu.Controls.Add(this.txtTenDangNhap);
-            //
-            // grpThongTin
-            //
             this.grpThongTin.Size = new System.Drawing.Size(900, 140);
             this.grpThongTin.Text = "Thông tin giảng viên";
-            //
-            // dòng 1
-            //
             this.lblMaGV.AutoSize = true;
             this.lblMaGV.Location = new System.Drawing.Point(15, 15);
             this.lblMaGV.Name = "lblMaGV";
@@ -109,9 +97,6 @@ namespace QuanLySinhVien.GUI
             this.dtpNgaySinh.Name = "dtpNgaySinh";
             this.dtpNgaySinh.Size = new System.Drawing.Size(120, 23);
             this.dtpNgaySinh.TabIndex = 2;
-            //
-            // dòng 2
-            //
             this.lblGioiTinh.AutoSize = true;
             this.lblGioiTinh.Location = new System.Drawing.Point(15, 50);
             this.lblGioiTinh.Name = "lblGioiTinh";
@@ -139,9 +124,6 @@ namespace QuanLySinhVien.GUI
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(230, 23);
             this.txtEmail.TabIndex = 5;
-            //
-            // dòng 3
-            //
             this.lblMaKhoa.AutoSize = true;
             this.lblMaKhoa.Location = new System.Drawing.Point(15, 85);
             this.lblMaKhoa.Name = "lblMaKhoa";
@@ -160,9 +142,6 @@ namespace QuanLySinhVien.GUI
             this.txtTenDangNhap.Name = "txtTenDangNhap";
             this.txtTenDangNhap.Size = new System.Drawing.Size(150, 23);
             this.txtTenDangNhap.TabIndex = 7;
-            //
-            // frmGiangVien
-            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.Name = "frmGiangVien";
             this.Text = "Quản lý giảng viên";

@@ -1,9 +1,4 @@
-﻿# =============================================================================
-# Đóng gói ứng dụng (chương 6): build bản Release, gom file chạy + CSDL + hướng dẫn
-# vào thư mục BanPhatHanh\QuanLySinhVien_v1.0 và nén thành file .zip để mang sang máy khác.
-# Cách chạy: chuột phải file này > Run with PowerShell (hoặc: powershell -ExecutionPolicy Bypass -File DongGoi.ps1)
-# =============================================================================
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 $goc = Split-Path -Parent $PSScriptRoot
 $msbuild = "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe"
 $phienBan = "QuanLySinhVien_v1.0"

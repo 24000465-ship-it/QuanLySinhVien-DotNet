@@ -2,10 +2,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.BUS
 {
-    /// <summary>
-    /// Lưu người dùng đang đăng nhập để mọi form dùng chung (truyền dữ liệu giữa các form
-    /// qua thuộc tính static — giống lớp "Controller" trong bài giảng).
-    /// </summary>
     public static class PhienDangNhap
     {
         public static NguoiDung NguoiDungHienTai { get; private set; }
@@ -25,7 +21,6 @@ namespace QuanLySinhVien.BUS
             NguoiDungHienTai = null;
         }
 
-        /// <summary>Chặn thao tác nếu người dùng không phải Admin hoặc Cán bộ đào tạo.</summary>
         public static void YeuCauQuanLyDaoTao()
         {
             if (!DaDangNhap || !NguoiDungHienTai.LaQuanLyDaoTao)

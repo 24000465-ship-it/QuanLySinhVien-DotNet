@@ -4,7 +4,6 @@ using QuanLySinhVien.DAL;
 
 namespace QuanLySinhVien.BUS
 {
-    /// <summary>Nghiệp vụ xếp môn theo cả lớp (F06).</summary>
     public class XepMonBUS : IXepMonBUS
     {
         private readonly XepMonDAL dal = new XepMonDAL();
@@ -22,7 +21,6 @@ namespace QuanLySinhVien.BUS
             if (sinhVienDal.LayDanhSach("", maLop).Rows.Count == 0)
                 throw new LoiNghiepVu("Lớp chưa có sinh viên.");
 
-            // R06: thủ tục chỉ thêm sinh viên chưa có môn này trong học kỳ (không tạo trùng)
             int soDongThem = dal.XepMonTheoLop(maLop, maMon, maHocKy);
             if (soDongThem == 0)
                 throw new LoiNghiepVu("Lớp đã được xếp môn này đầy đủ.");

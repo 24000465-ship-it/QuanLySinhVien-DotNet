@@ -40,9 +40,6 @@ namespace QuanLySinhVien.GUI
             this.pnlChon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDiem)).BeginInit();
             this.SuspendLayout();
-            //
-            // pnlChon
-            //
             this.pnlChon.Controls.Add(this.lblHocKy);
             this.pnlChon.Controls.Add(this.cboHocKy);
             this.pnlChon.Controls.Add(this.lblLopMon);
@@ -94,9 +91,6 @@ namespace QuanLySinhVien.GUI
             this.lblThongBao.Name = "lblThongBao";
             this.lblThongBao.Size = new System.Drawing.Size(700, 26);
             this.lblThongBao.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
-            // dgvDiem
-            //
             this.dgvDiem.AllowUserToAddRows = false;
             this.dgvDiem.AllowUserToDeleteRows = false;
             this.dgvDiem.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -110,9 +104,6 @@ namespace QuanLySinhVien.GUI
             this.dgvDiem.RowHeadersVisible = false;
             this.dgvDiem.TabIndex = 5;
             this.dgvDiem.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDiem_CellEndEdit);
-            //
-            // các cột: 3 cột điểm thành phần được nhập (nền vàng), các cột còn lại chỉ đọc
-            //
             kieuONhap.BackColor = System.Drawing.Color.LightYellow;
             this.colMaSV.HeaderText = "Mã SV";
             this.colMaSV.Name = "colMaSV";
@@ -142,9 +133,6 @@ namespace QuanLySinhVien.GUI
             this.colKetLuan.HeaderText = "Kết quả";
             this.colKetLuan.Name = "colKetLuan";
             this.colKetLuan.ReadOnly = true;
-            //
-            // frmNhapDiem
-            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 560);

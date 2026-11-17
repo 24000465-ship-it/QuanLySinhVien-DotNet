@@ -29,76 +29,46 @@ namespace QuanLySinhVien.GUI
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
-            //
-            // lblMatKhauCu
-            //
             this.lblMatKhauCu.AutoSize = true;
             this.lblMatKhauCu.Location = new System.Drawing.Point(25, 28);
             this.lblMatKhauCu.Name = "lblMatKhauCu";
             this.lblMatKhauCu.Text = "Mật khẩu hiện tại:";
-            //
-            // txtMatKhauCu
-            //
             this.txtMatKhauCu.Location = new System.Drawing.Point(160, 25);
             this.txtMatKhauCu.Name = "txtMatKhauCu";
             this.txtMatKhauCu.Size = new System.Drawing.Size(220, 23);
             this.txtMatKhauCu.TabIndex = 0;
             this.txtMatKhauCu.UseSystemPasswordChar = true;
-            //
-            // lblMatKhauMoi
-            //
             this.lblMatKhauMoi.AutoSize = true;
             this.lblMatKhauMoi.Location = new System.Drawing.Point(25, 64);
             this.lblMatKhauMoi.Name = "lblMatKhauMoi";
             this.lblMatKhauMoi.Text = "Mật khẩu mới:";
-            //
-            // txtMatKhauMoi
-            //
             this.txtMatKhauMoi.Location = new System.Drawing.Point(160, 61);
             this.txtMatKhauMoi.Name = "txtMatKhauMoi";
             this.txtMatKhauMoi.Size = new System.Drawing.Size(220, 23);
             this.txtMatKhauMoi.TabIndex = 1;
             this.txtMatKhauMoi.UseSystemPasswordChar = true;
-            //
-            // lblXacNhan
-            //
             this.lblXacNhan.AutoSize = true;
             this.lblXacNhan.Location = new System.Drawing.Point(25, 100);
             this.lblXacNhan.Name = "lblXacNhan";
             this.lblXacNhan.Text = "Nhập lại mật khẩu mới:";
-            //
-            // txtXacNhan
-            //
             this.txtXacNhan.Location = new System.Drawing.Point(160, 97);
             this.txtXacNhan.Name = "txtXacNhan";
             this.txtXacNhan.Size = new System.Drawing.Size(220, 23);
             this.txtXacNhan.TabIndex = 2;
             this.txtXacNhan.UseSystemPasswordChar = true;
-            //
-            // btnLuu
-            //
             this.btnLuu.Location = new System.Drawing.Point(160, 140);
             this.btnLuu.Name = "btnLuu";
             this.btnLuu.Size = new System.Drawing.Size(105, 30);
             this.btnLuu.TabIndex = 3;
             this.btnLuu.Text = "Lưu";
             this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
-            //
-            // btnHuy
-            //
             this.btnHuy.Location = new System.Drawing.Point(275, 140);
             this.btnHuy.Name = "btnHuy";
             this.btnHuy.Size = new System.Drawing.Size(105, 30);
             this.btnHuy.TabIndex = 4;
             this.btnHuy.Text = "Hủy";
             this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
-            //
-            // errorProvider
-            //
             this.errorProvider.ContainerControl = this;
-            //
-            // frmDoiMatKhau
-            //
             this.AcceptButton = this.btnLuu;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

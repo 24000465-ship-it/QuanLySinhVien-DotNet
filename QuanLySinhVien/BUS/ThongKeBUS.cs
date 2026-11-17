@@ -6,7 +6,6 @@ using QuanLySinhVien.DAL;
 
 namespace QuanLySinhVien.BUS
 {
-    /// <summary>Nghiệp vụ thống kê (F11) và lấy dữ liệu báo cáo (F12, F13).</summary>
     public class ThongKeBUS : IThongKeBUS
     {
         private static readonly string[] CacMucXepLoai = { "Xuất sắc", "Giỏi", "Khá", "Trung bình", "Yếu" };
@@ -14,10 +13,6 @@ namespace QuanLySinhVien.BUS
         private readonly KetQuaDAL ketQuaDal = new KetQuaDAL();
         private readonly ThongKeDAL dal = new ThongKeDAL();
 
-        /// <summary>
-        /// R04: điểm TB học kỳ = tổng (điểm thang 4 × số tín chỉ) / tổng số tín chỉ,
-        /// chỉ tính môn đã có điểm học phần (R10); môn F tính với điểm 0.
-        /// </summary>
         public DataTable XepLoaiSinhVien(string maLop, string maHocKy)
         {
             DataTable duLieu = ketQuaDal.LayTheoLopHocKy(maLop, maHocKy);
@@ -29,7 +24,6 @@ namespace QuanLySinhVien.BUS
             ketQua.Columns.Add("DiemTBHe4", typeof(decimal));
             ketQua.Columns.Add("XepLoai", typeof(string));
 
-            // Gom các môn theo từng sinh viên (giữ thứ tự mã SV)
             Dictionary<string, DataRow> theoSinhVien = new Dictionary<string, DataRow>();
             Dictionary<string, decimal> tongDiem = new Dictionary<string, decimal>();
             foreach (DataRow dong in duLieu.Rows)
@@ -47,7 +41,7 @@ namespace QuanLySinhVien.BUS
                 }
                 if (dong["DiemHe4"] == DBNull.Value)
                 {
-                    continue; // R10: môn chưa có điểm học phần không tính vào điểm trung bình
+                    continue;
                 }
                 int tinChi = Convert.ToInt32(dong["SoTinChi"]);
                 theoSinhVien[maSV]["SoTinChi"] = (int)theoSinhVien[maSV]["SoTinChi"] + tinChi;
@@ -116,7 +110,6 @@ namespace QuanLySinhVien.BUS
             if (string.IsNullOrEmpty(maLop))
                 throw new LoiNghiepVu("Vui lòng chọn lớp.");
             DataTable bang = dal.BaoCaoDanhSachSinhVien(maLop);
-            // Thêm cột ngày sinh dạng dd/MM/yyyy để báo cáo hiển thị đúng kiểu Việt Nam trên mọi máy
             bang.Columns.Add("NgaySinhText", typeof(string));
             foreach (DataRow dong in bang.Rows)
                 dong["NgaySinhText"] = Convert.ToDateTime(dong["NgaySinh"]).ToString("dd/MM/yyyy");
@@ -127,7 +120,7 @@ namespace QuanLySinhVien.BUS
         {
             if (string.IsNullOrEmpty(maLop) || string.IsNullOrEmpty(maMon) || string.IsNullOrEmpty(maHocKy))
                 throw new LoiNghiepVu("Vui lòng chọn đủ học kỳ, lớp và môn học.");
-            new KetQuaBUS().KiemTraQuyenXem(maLop, maMon, maHocKy);   // R07
+            new KetQuaBUS().KiemTraQuyenXem(maLop, maMon, maHocKy);
             return dal.BaoCaoBangDiemLopMon(maLop, maMon, maHocKy);
         }
 

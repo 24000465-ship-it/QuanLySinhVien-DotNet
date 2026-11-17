@@ -6,7 +6,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.BUS
 {
-    /// <summary>Nghiệp vụ quản lý ngành (F04).</summary>
     public class NganhBUS : IDanhMucBUS<Nganh>
     {
         private readonly NganhDAL dal = new NganhDAL();
@@ -33,7 +32,6 @@ namespace QuanLySinhVien.BUS
         public void Xoa(string maNganh)
         {
             PhienDangNhap.YeuCauQuanLyDaoTao();
-            // R08: không xóa ngành đang có lớp
             if (dal.DemPhuThuoc(maNganh) > 0)
                 throw new LoiNghiepVu("Không thể xóa ngành đang có lớp.");
             dal.Xoa(maNganh);
@@ -41,7 +39,6 @@ namespace QuanLySinhVien.BUS
 
         private void KiemTra(Nganh nganh)
         {
-            // Mã ngành đúng 2 chữ số vì được dùng để sinh mã sinh viên (R05)
             if (string.IsNullOrWhiteSpace(nganh.MaNganh) || !Regex.IsMatch(nganh.MaNganh.Trim(), @"^\d{2}$"))
                 throw new LoiNghiepVu("Mã ngành phải gồm đúng 2 chữ số, ví dụ 01.", "MaNganh");
             if (string.IsNullOrWhiteSpace(nganh.TenNganh))

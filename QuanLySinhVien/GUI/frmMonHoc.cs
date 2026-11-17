@@ -6,7 +6,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>Quản lý môn học (F05).</summary>
     public partial class frmMonHoc : frmDanhMucBase
     {
         private readonly IDanhMucBUS<MonHoc> monHocBus = new MonHocBUS();

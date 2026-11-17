@@ -5,7 +5,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.DAL
 {
-    /// <summary>Truy cập bảng KetQua (điểm).</summary>
     public class KetQuaDAL
     {
         public DataTable LayTheoLopMon(string maLop, string maMon, string maHocKy)
@@ -21,7 +20,6 @@ namespace QuanLySinhVien.DAL
             return DBHelper.LayBang("sp_KetQua_LayTheoSinhVien", DBHelper.TS("@p_MaSV", maSV));
         }
 
-        /// <summary>Dữ liệu (mã SV, họ tên, số tín chỉ, điểm hệ 4) để tính điểm trung bình học kỳ.</summary>
         public DataTable LayTheoLopHocKy(string maLop, string maHocKy)
         {
             return DBHelper.LayBang("sp_KetQua_LayTheoLopHocKy",
@@ -29,7 +27,6 @@ namespace QuanLySinhVien.DAL
                 DBHelper.TS("@p_MaHocKy", maHocKy));
         }
 
-        /// <summary>Lưu cả bảng điểm trong một giao dịch: lỗi một dòng thì không lưu dòng nào.</summary>
         public void CapNhatNhieu(List<KetQua> danhSach)
         {
             List<KeyValuePair<string, MySqlParameter[]>> lenh = new List<KeyValuePair<string, MySqlParameter[]>>();

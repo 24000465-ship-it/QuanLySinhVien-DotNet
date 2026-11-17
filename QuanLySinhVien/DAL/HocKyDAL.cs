@@ -4,7 +4,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.DAL
 {
-    /// <summary>Truy cập bảng HocKy.</summary>
     public class HocKyDAL
     {
         public DataTable LayDanhSach(string tuKhoa)

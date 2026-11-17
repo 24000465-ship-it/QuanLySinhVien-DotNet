@@ -5,7 +5,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>Quản lý ngành (F04) — viết theo khuôn của module mẫu frmKhoa.</summary>
     public partial class frmNganh : frmDanhMucBase
     {
         private readonly IDanhMucBUS<Nganh> nganhBus = new NganhBUS();

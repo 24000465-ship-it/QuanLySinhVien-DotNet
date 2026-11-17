@@ -5,15 +5,8 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>
-    /// MODULE MẪU — Quản lý khoa (F04).
-    /// Form kế thừa frmDanhMucBase nên các nút Thêm/Sửa/Xóa/Lưu/Hủy, tìm kiếm, xuất Excel đã có sẵn.
-    /// Ở đây chỉ cần ghi đè (override) các phương thức để làm phần riêng của khoa.
-    /// Luồng một thao tác: GUI (form này) → BUS (KhoaBUS kiểm tra quy tắc) → DAL (KhoaDAL gọi thủ tục) → MySQL.
-    /// </summary>
     public partial class frmKhoa : frmDanhMucBase
     {
-        // Khai báo theo kiểu interface: form chỉ biết "làm gì", không phụ thuộc cách làm
         private readonly IDanhMucBUS<Khoa> khoaBus = new KhoaBUS();
 
         public frmKhoa()
@@ -41,13 +34,12 @@ namespace QuanLySinhVien.GUI
 
         protected override void ChoPhepNhap(bool choPhep, bool dangThem)
         {
-            txtMaKhoa.ReadOnly = !(choPhep && dangThem);   // mã chỉ nhập khi thêm mới, không sửa được
+            txtMaKhoa.ReadOnly = !(choPhep && dangThem);
             txtTenKhoa.ReadOnly = !choPhep;
             if (choPhep)
                 (dangThem ? txtMaKhoa : txtTenKhoa).Focus();
         }
 
-        /// <summary>Gom dữ liệu các ô nhập thành đối tượng Khoa.</summary>
         private Khoa DocForm()
         {
             return new Khoa { MaKhoa = txtMaKhoa.Text, TenKhoa = txtTenKhoa.Text };

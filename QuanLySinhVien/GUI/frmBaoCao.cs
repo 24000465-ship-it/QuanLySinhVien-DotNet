@@ -9,14 +9,8 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>
-    /// Xem và in báo cáo bằng Crystal Report (F13, UC05).
-    /// Quy trình: BUS lấy DataTable (từ View/Stored Procedure) → nạp vào mẫu .rpt bằng SetDataSource
-    /// → gán cho CrystalReportViewer. Từ cửa sổ xem trước có thể in, xuất PDF/Excel.
-    /// </summary>
     public partial class frmBaoCao : Form
     {
-        // Ba mẫu báo cáo: tên file .rpt trong thư mục CrystalReport và tên bảng dữ liệu mà mẫu dùng
         private const string BaoCaoDanhSachSV = "Danh sách sinh viên theo lớp";
         private const string BaoCaoBangDiemLopMon = "Bảng điểm lớp - môn";
         private const string BaoCaoBangDiemSV = "Bảng điểm cá nhân sinh viên";
@@ -41,7 +35,7 @@ namespace QuanLySinhVien.GUI
             if (nd.LaQuanLyDaoTao)
                 cboLoaiBaoCao.Items.AddRange(new object[] { BaoCaoDanhSachSV, BaoCaoBangDiemLopMon, BaoCaoBangDiemSV });
             else
-                cboLoaiBaoCao.Items.Add(BaoCaoBangDiemLopMon); // giảng viên: chỉ bảng điểm lớp mình dạy
+                cboLoaiBaoCao.Items.Add(BaoCaoBangDiemLopMon);
             try
             {
                 GiaoDien.NapHocKy(cboHocKy, hocKyBus.LayDanhSach(""));
@@ -79,7 +73,6 @@ namespace QuanLySinhVien.GUI
             GiaoDien.NapComboBox(cboMonHoc, xepMonBus.LayMonDaXep(maLop, maHocKy), "TenMon", "MaMon", false);
         }
 
-        /// <summary>Chỉ hiện các ô điều kiện cần cho loại báo cáo đang chọn.</summary>
         private void cboLoaiBaoCao_SelectedIndexChanged(object sender, EventArgs e)
         {
             string loai = Convert.ToString(cboLoaiBaoCao.SelectedItem);
@@ -135,13 +128,8 @@ namespace QuanLySinhVien.GUI
             }
         }
 
-        /// <summary>
-        /// Nạp mẫu .rpt và gán dữ liệu. Nếu máy chưa có file mẫu (chưa thiết kế trong Visual Studio)
-        /// thì hiện dữ liệu dạng bảng để vẫn xem / xuất Excel được.
-        /// </summary>
         private void HienBaoCao(string tenFile, DataTable duLieu)
         {
-            // Thư mục chứa file chương trình (QuanLySinhVien.exe) — mẫu .rpt nằm trong CrystalReport bên cạnh
             string thuMucChuongTrinh = Path.GetDirectoryName(typeof(frmBaoCao).Assembly.Location);
             string duongDan = Path.Combine(thuMucChuongTrinh, "CrystalReport", tenFile);
             if (!File.Exists(duongDan))
@@ -175,7 +163,7 @@ namespace QuanLySinhVien.GUI
             }
             else if (baoCaoDangMo != null)
             {
-                crvBaoCao.ExportReport();   // hộp thoại xuất có sẵn của Crystal (PDF, Excel, Word...)
+                crvBaoCao.ExportReport();
             }
             else
             {

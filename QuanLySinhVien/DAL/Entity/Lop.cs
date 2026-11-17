@@ -8,7 +8,6 @@ namespace QuanLySinhVien.DAL.Entity
 
         public string MaNganh { get; set; }
 
-        /// <summary>Năm nhập học của lớp, ví dụ 2026.</summary>
         public int KhoaHoc { get; set; }
     }
 }

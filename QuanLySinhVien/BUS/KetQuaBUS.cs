@@ -6,7 +6,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.BUS
 {
-    /// <summary>Nghiệp vụ điểm (F08, F09, F10).</summary>
     public class KetQuaBUS : IKetQuaBUS
     {
         private readonly KetQuaDAL dal = new KetQuaDAL();
@@ -23,10 +22,6 @@ namespace QuanLySinhVien.BUS
             return dal.LayTheoSinhVien(maSV);
         }
 
-        /// <summary>
-        /// F09: đủ 3 điểm thành phần thì tính điểm học phần, điểm chữ, thang 4 (R02, R03);
-        /// thiếu điểm thì để trống điểm học phần (R10).
-        /// </summary>
         public void TinhDiem(KetQua kq)
         {
             if (kq.DuDiemThanhPhan)
@@ -46,7 +41,6 @@ namespace QuanLySinhVien.BUS
 
         public void LuuBangDiem(string maLop, string maMon, string maHocKy, List<KetQua> danhSach)
         {
-            // R07: chỉ giảng viên được phân công mới được nhập, sửa điểm lớp - môn này
             NguoiDung nd = PhienDangNhap.NguoiDungHienTai;
             if (nd == null || nd.VaiTro != NguoiDung.VaiTroGiangVien)
                 throw new LoiNghiepVu("Chỉ giảng viên mới được nhập điểm.");
@@ -62,7 +56,6 @@ namespace QuanLySinhVien.BUS
             dal.CapNhatNhieu(danhSach);
         }
 
-        /// <summary>Giảng viên chỉ xem bảng điểm lớp mình dạy; cán bộ đào tạo xem được tất cả.</summary>
         public void KiemTraQuyenXem(string maLop, string maMon, string maHocKy)
         {
             NguoiDung nd = PhienDangNhap.NguoiDungHienTai;

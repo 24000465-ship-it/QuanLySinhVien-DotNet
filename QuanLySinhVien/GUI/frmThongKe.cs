@@ -7,7 +7,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>Thống kê (F11): xếp loại sinh viên theo lớp, kèm các truy vấn thống kê nâng cao.</summary>
     public partial class frmThongKe : Form
     {
         private readonly IThongKeBUS thongKeBus = new ThongKeBUS();
@@ -27,7 +26,6 @@ namespace QuanLySinhVien.GUI
             {
                 GiaoDien.NapComboBox(cboHocKy, hocKyBus.LayDanhSach(""), "TenHocKy", "MaHocKy", false);
                 GiaoDien.NapComboBox(cboLop, lopBus.LayDanhSach(""), "TenLop", "MaLop", false);
-                // Mặc định chọn học kỳ 20252 nếu có (học kỳ gần nhất đã có đủ điểm trong dữ liệu mẫu)
                 cboHocKy.SelectedValue = "20252";
             }
             catch (Exception ex)
@@ -43,7 +41,6 @@ namespace QuanLySinhVien.GUI
             int soLuong = (int)nudSoLuong.Value;
             try
             {
-                // 1. Xếp loại từng sinh viên và tổng hợp theo mức xếp loại (R04)
                 dgvXepLoai.DataSource = thongKeBus.XepLoaiSinhVien(maLop, maHocKy);
                 GiaoDien.DatTieuDeCot(dgvXepLoai, "MaSV", "Mã SV", "HoTen", "Họ tên",
                     "SoTinChi", "Tín chỉ tính điểm", "DiemTBHe4", "Điểm TB (thang 4)", "XepLoai", "Xếp loại");
@@ -52,7 +49,6 @@ namespace QuanLySinhVien.GUI
                 GiaoDien.DatTieuDeCot(dgvTongHop, "XepLoai", "Xếp loại", "SoSinhVien", "Số SV", "TiLe", "Tỉ lệ");
                 VeBieuDo(tongHop);
 
-                // 2. Truy vấn nâng cao bằng Stored Procedure
                 dgvDiemCao.DataSource = thongKeBus.SinhVienDiemCaoNhat(maLop, maHocKy, soLuong);
                 GiaoDien.DatTieuDeCot(dgvDiemCao, "MaSV", "Mã SV", "HoTen", "Họ tên",
                     "DiemTBHe4", "Điểm TB (thang 4)", "SoTinChi", "Số tín chỉ");
@@ -69,7 +65,6 @@ namespace QuanLySinhVien.GUI
             }
         }
 
-        /// <summary>Biểu đồ cột số sinh viên theo xếp loại.</summary>
         private void VeBieuDo(DataTable tongHop)
         {
             System.Windows.Forms.DataVisualization.Charting.Series cot = chartXepLoai.Series["SoSinhVien"];

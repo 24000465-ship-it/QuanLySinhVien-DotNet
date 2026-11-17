@@ -7,10 +7,6 @@ using QuanLySinhVien.DAL.Entity;
 
 namespace QuanLySinhVien.GUI
 {
-    /// <summary>
-    /// Xem bảng điểm (F10): theo lớp - môn và theo từng sinh viên.
-    /// Giảng viên chỉ thấy các lớp - môn mình dạy (R07).
-    /// </summary>
     public partial class frmBangDiem : Form
     {
         private readonly IKetQuaBUS ketQuaBus = new KetQuaBUS();
@@ -33,7 +29,6 @@ namespace QuanLySinhVien.GUI
             laGiangVien = PhienDangNhap.NguoiDungHienTai.VaiTro == NguoiDung.VaiTroGiangVien;
             if (laGiangVien)
             {
-                // Giảng viên chỉ xem bảng điểm lớp mình dạy, không tra cứu theo sinh viên
                 tabChinh.TabPages.Remove(tabSinhVien);
             }
             try
@@ -49,7 +44,6 @@ namespace QuanLySinhVien.GUI
             }
         }
 
-        /// <summary>Cán bộ đào tạo: mọi lớp; giảng viên: các lớp được phân công trong học kỳ.</summary>
         private void NapLop()
         {
             if (laGiangVien)
@@ -64,7 +58,6 @@ namespace QuanLySinhVien.GUI
             NapMon();
         }
 
-        /// <summary>Các môn lớp đã được xếp trong học kỳ (giảng viên: chỉ môn mình dạy).</summary>
         private void NapMon()
         {
             string maLop = GiaoDien.GiaTri(cboLop);
@@ -109,7 +102,6 @@ namespace QuanLySinhVien.GUI
             }
         }
 
-        /// <summary>Đếm số sinh viên đạt / trượt / chưa đủ điểm.</summary>
         private static string TomTat(DataTable bang)
         {
             int dat = 0, truot = 0, chuaDu = 0;
@@ -128,7 +120,6 @@ namespace QuanLySinhVien.GUI
             XuatExcel.TuLuoi(dgvLopMon, "Bảng điểm " + cboLop.Text + " - " + cboMonHoc.Text + " - " + cboHocKy.Text);
         }
 
-        // ===================== Tab theo sinh viên =====================
 
         private void btnXemSinhVien_Click(object sender, EventArgs e)
         {
@@ -159,11 +150,6 @@ namespace QuanLySinhVien.GUI
             }
         }
 
-        /// <summary>
-        /// Mở cây đơn vị và đăng ký (+=) phương thức nhận dữ liệu vào sự kiện SinhVienDuocChon:
-        /// khi người dùng nhấp đúp một sinh viên ở frmCayDonVi, phương thức XemBangDiemSinhVien
-        /// của form này được gọi qua delegate (truyền dữ liệu giữa các form).
-        /// </summary>
         private void btnChonTuCay_Click(object sender, EventArgs e)
         {
             frmCayDonVi cay = new frmCayDonVi();

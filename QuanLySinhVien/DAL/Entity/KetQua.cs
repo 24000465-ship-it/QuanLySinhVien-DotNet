@@ -2,10 +2,6 @@ using QuanLySinhVien.BUS;
 
 namespace QuanLySinhVien.DAL.Entity
 {
-    /// <summary>
-    /// Kết quả học tập của một sinh viên với một môn trong một học kỳ.
-    /// Các điểm thành phần tự kiểm tra hợp lệ khi gán (R01); điểm học phần được lớp BUS tính.
-    /// </summary>
     public class KetQua
     {
         private decimal? diemCC;
@@ -42,7 +38,6 @@ namespace QuanLySinhVien.DAL.Entity
 
         public decimal? DiemHe4 { get; set; }
 
-        /// <summary>Đủ 3 điểm thành phần thì mới tính điểm học phần (R10).</summary>
         public bool DuDiemThanhPhan
         {
             get { return diemCC.HasValue && diemGK.HasValue && diemKTHP.HasValue; }
